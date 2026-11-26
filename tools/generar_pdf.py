@@ -85,7 +85,6 @@ for idx,p in enumerate(data['productos']):
     c.setFont('AnayaSansBold',9.5); c.drawRightString(x+width-9,y-19,money(p['precio']))
     y-=rowh
 c.setFillColor(MUTED); c.setFont('AnayaSans',8); c.drawString(36,y-19,'Precios en dólares estadounidenses. El envío se cotiza por separado.')
-c.drawString(36,y-32,'Algunas imágenes fueron mejoradas con IA; consulta la etiqueta posterior cuando esté disponible.')
 c.showPage()
 
 # Fichas editoriales: foto principal y detalles propios de cada producto.

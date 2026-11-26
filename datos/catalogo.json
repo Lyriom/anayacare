@@ -39,11 +39,6 @@
         {
           "slug": "pestanas-reverso-ia",
           "alt": "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones",
-          "etiqueta": "Reverso recreado con IA"
-        },
-        {
-          "slug": "pestanas-reverso",
-          "alt": "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones",
           "etiqueta": "Reverso"
         }
       ]
@@ -78,11 +73,6 @@
         },
         {
           "slug": "serum-hialuronico-reverso-ia",
-          "alt": "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento",
-          "etiqueta": "Reverso recreado con IA"
-        },
-        {
-          "slug": "serum-hialuronico-reverso",
           "alt": "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento",
           "etiqueta": "Reverso"
         }
@@ -124,15 +114,10 @@
         {
           "slug": "protector-termico-uso-ia",
           "alt": "Lateral de la etiqueta del protector térmico con el modo de uso",
-          "etiqueta": "Modo de uso recreado con IA"
-        },
-        {
-          "slug": "protector-termico-uso",
-          "alt": "Lateral de la etiqueta del protector térmico con el modo de uso",
           "etiqueta": "Modo de uso"
         },
         {
-          "slug": "protector-termico-precauciones",
+          "slug": "protector-termico-precauciones-estudio",
           "alt": "Lateral de la etiqueta del protector térmico con las precauciones",
           "etiqueta": "Precauciones"
         }
@@ -164,7 +149,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "capilar-barba-reverso",
+          "slug": "capilar-barba-reverso-estudio",
           "alt": "Reverso de la etiqueta del tratamiento capilar y barba con ingredientes INCI, elaboración, expiración y lote",
           "etiqueta": "Reverso"
         }
@@ -198,7 +183,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "tonico-descongestivo-reverso",
+          "slug": "tonico-descongestivo-reverso-estudio",
           "alt": "Tónico descongestivo: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -230,7 +215,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "espuma-facial-reverso",
+          "slug": "espuma-facial-reverso-estudio",
           "alt": "Espuma facial limpiadora: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -261,7 +246,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "agua-micelar-reverso",
+          "slug": "agua-micelar-reverso-estudio",
           "alt": "Agua micelar: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -292,7 +277,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "contorno-ojos-reverso",
+          "slug": "contorno-ojos-reverso-estudio",
           "alt": "Contorno de ojos: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -324,7 +309,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "exfoliante-arroz-reverso",
+          "slug": "exfoliante-arroz-reverso-estudio",
           "alt": "Exfoliante de arroz: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -356,8 +341,8 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "tonico-capilar-reverso",
-          "alt": "Tónico capilar: etiqueta posterior",
+          "slug": "tonico-capilar-reverso-estudio",
+          "alt": "Tónico capilar: vista posterior ilustrativa",
           "etiqueta": "Reverso"
         }
       ]
@@ -414,7 +399,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "jabon-arroz-reverso",
+          "slug": "jabon-arroz-reverso-estudio",
           "alt": "Jabón aclarante de arroz: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -472,7 +457,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "jabon-avena-reverso",
+          "slug": "jabon-avena-reverso-estudio",
           "alt": "Jabón de avena: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -532,7 +517,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "balsamo-labial-reverso",
+          "slug": "balsamo-labial-reverso-estudio",
           "alt": "Bálsamo labial de cera de abejas: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -566,7 +551,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "vela-masaje-reverso",
+          "slug": "vela-masaje-reverso-estudio",
           "alt": "Vela de masaje: etiqueta posterior",
           "etiqueta": "Reverso"
         }
@@ -597,7 +582,7 @@
           "etiqueta": "Vista de producto"
         },
         {
-          "slug": "refresh-frente",
+          "slug": "refresh-frente-estudio",
           "alt": "Etiqueta con indicaciones del Refresh roll-on",
           "etiqueta": "Etiqueta posterior"
         }
@@ -630,7 +615,7 @@
           "etiqueta": "Frente"
         },
         {
-          "slug": "gel-neutro-reverso",
+          "slug": "gel-neutro-reverso-estudio",
           "alt": "Gel neutro: etiqueta posterior",
           "etiqueta": "Reverso"
         }

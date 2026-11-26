@@ -78,8 +78,7 @@ PRODUCTS = [
                      "Suspender su uso en caso de irritación o reacción adversa.", "Mantener fuera del alcance de los niños."],
         "photos": [
             ("pestanas-frente-ia", "Frasco gotero ámbar del Tratamiento Crecimiento de Pestañas, etiqueta frontal rosa con ilustración de ojo", "Frente"),
-            ("pestanas-reverso-ia", "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones", "Reverso recreado con IA"),
-            ("pestanas-reverso", "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones", "Reverso"),
+            ("pestanas-reverso-ia", "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones", "Reverso"),
         ],
     },
     {
@@ -94,8 +93,7 @@ PRODUCTS = [
                      "Conservar en un lugar fresco y seco, protegido de la luz."],
         "photos": [
             ("serum-hialuronico-frente-ia", "Frasco gotero de vidrio transparente del Sérum de Ácido Hialurónico con tapa dorada", "Frente"),
-            ("serum-hialuronico-reverso-ia", "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento", "Reverso recreado con IA"),
-            ("serum-hialuronico-reverso", "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento", "Reverso"),
+            ("serum-hialuronico-reverso-ia", "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento", "Reverso"),
         ],
     },
     {
@@ -111,9 +109,8 @@ PRODUCTS = [
                      "Mantener fuera del alcance de los niños.", "Suspender su uso si presenta irritación.", "Conservar en lugar fresco."],
         "photos": [
             ("protector-termico-frente-ia", "Frasco gotero ámbar del Protector Térmico Capilar con etiqueta botánica de romero y aguacate", "Frente"),
-            ("protector-termico-uso-ia", "Lateral de la etiqueta del protector térmico con el modo de uso", "Modo de uso recreado con IA"),
-            ("protector-termico-uso", "Lateral de la etiqueta del protector térmico con el modo de uso", "Modo de uso"),
-            ("protector-termico-precauciones", "Lateral de la etiqueta del protector térmico con las precauciones", "Precauciones"),
+            ("protector-termico-uso-ia", "Lateral de la etiqueta del protector térmico con el modo de uso", "Modo de uso"),
+            ("protector-termico-precauciones-estudio", "Lateral de la etiqueta del protector térmico con las precauciones", "Precauciones"),
         ],
     },
     {
@@ -125,7 +122,7 @@ PRODUCTS = [
         "inci": None, "usage": None, "cautions": None,
         "photos": [
             ("capilar-barba-frente-ia", "Frasco gotero ámbar del Tratamiento Capilar & Barba con etiqueta gris oscuro Botanical Care", "Frente"),
-            ("capilar-barba-reverso", "Reverso de la etiqueta del tratamiento capilar y barba con ingredientes INCI, elaboración, expiración y lote", "Reverso"),
+            ("capilar-barba-reverso-estudio", "Reverso de la etiqueta del tratamiento capilar y barba con ingredientes INCI, elaboración, expiración y lote", "Reverso"),
         ],
     },
 ]
@@ -151,19 +148,19 @@ CATALOG = [
 CATALOG_PHOTOS = {
     'shampoo': [("shampoo-referencial", "Imagen referencial generada del shampoo de cebolla", "Imagen referencial")],
     'jabon-cafe': [("jabon-cafe-referencial", "Imagen referencial generada del jabón exfoliante de café", "Imagen referencial")],
-    'exfoliante-arroz': [("exfoliante-arroz-frente-ia", "Exfoliante de arroz: fotografía del producto", "Frente"), ("exfoliante-arroz-reverso", "Exfoliante de arroz: etiqueta posterior", "Reverso")],
-    'vela-masaje': [("vela-masaje-frente-ia", "Vela de masaje: fotografía del producto", "Frente"), ("vela-masaje-reverso", "Vela de masaje: etiqueta posterior", "Reverso")],
-    'gel-neutro': [("gel-neutro-frente-ia", "Gel neutro: fotografía del producto", "Frente"), ("gel-neutro-reverso", "Gel neutro: etiqueta posterior", "Reverso")],
-    'tonico-capilar': [("tonico-capilar-frente-ia", "Tónico capilar: fotografía del producto", "Frente"), ("tonico-capilar-reverso", "Tónico capilar: etiqueta posterior", "Reverso")],
-    'contorno-ojos': [("contorno-ojos-frente-ia", "Contorno de ojos: fotografía del producto", "Frente"), ("contorno-ojos-reverso", "Contorno de ojos: etiqueta posterior", "Reverso")],
-    'tonico-descongestivo': [("tonico-descongestivo-frente-ia", "Tónico descongestivo: fotografía del producto", "Frente"), ("tonico-descongestivo-reverso", "Tónico descongestivo: etiqueta posterior", "Reverso")],
-    'espuma-facial': [("espuma-facial-frente-ia", "Espuma facial limpiadora: fotografía del producto", "Frente"), ("espuma-facial-reverso", "Espuma facial limpiadora: etiqueta posterior", "Reverso")],
-    'agua-micelar': [("agua-micelar-frente-ia", "Agua micelar: fotografía del producto", "Frente"), ("agua-micelar-reverso", "Agua micelar: etiqueta posterior", "Reverso")],
-    'jabon-arroz': [("jabon-arroz-frente-ia", "Jabón aclarante de arroz: fotografía del producto", "Frente"), ("jabon-arroz-reverso", "Jabón aclarante de arroz: etiqueta posterior", "Reverso")],
-    'jabon-avena': [("jabon-avena-frente-ia", "Jabón de avena: fotografía del producto", "Frente"), ("jabon-avena-reverso", "Jabón de avena: etiqueta posterior", "Reverso")],
+    'exfoliante-arroz': [("exfoliante-arroz-frente-ia", "Exfoliante de arroz: fotografía del producto", "Frente"), ("exfoliante-arroz-reverso-estudio", "Exfoliante de arroz: etiqueta posterior", "Reverso")],
+    'vela-masaje': [("vela-masaje-frente-ia", "Vela de masaje: fotografía del producto", "Frente"), ("vela-masaje-reverso-estudio", "Vela de masaje: etiqueta posterior", "Reverso")],
+    'gel-neutro': [("gel-neutro-frente-ia", "Gel neutro: fotografía del producto", "Frente"), ("gel-neutro-reverso-estudio", "Gel neutro: etiqueta posterior", "Reverso")],
+    'tonico-capilar': [("tonico-capilar-frente-ia", "Tónico capilar: fotografía del producto", "Frente"), ("tonico-capilar-reverso-estudio", "Tónico capilar: vista posterior ilustrativa", "Reverso")],
+    'contorno-ojos': [("contorno-ojos-frente-ia", "Contorno de ojos: fotografía del producto", "Frente"), ("contorno-ojos-reverso-estudio", "Contorno de ojos: etiqueta posterior", "Reverso")],
+    'tonico-descongestivo': [("tonico-descongestivo-frente-ia", "Tónico descongestivo: fotografía del producto", "Frente"), ("tonico-descongestivo-reverso-estudio", "Tónico descongestivo: etiqueta posterior", "Reverso")],
+    'espuma-facial': [("espuma-facial-frente-ia", "Espuma facial limpiadora: fotografía del producto", "Frente"), ("espuma-facial-reverso-estudio", "Espuma facial limpiadora: etiqueta posterior", "Reverso")],
+    'agua-micelar': [("agua-micelar-frente-ia", "Agua micelar: fotografía del producto", "Frente"), ("agua-micelar-reverso-estudio", "Agua micelar: etiqueta posterior", "Reverso")],
+    'jabon-arroz': [("jabon-arroz-frente-ia", "Jabón aclarante de arroz: fotografía del producto", "Frente"), ("jabon-arroz-reverso-estudio", "Jabón aclarante de arroz: etiqueta posterior", "Reverso")],
+    'jabon-avena': [("jabon-avena-frente-ia", "Jabón de avena: fotografía del producto", "Frente"), ("jabon-avena-reverso-estudio", "Jabón de avena: etiqueta posterior", "Reverso")],
     'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente")],
-    'balsamo-labial': [("balsamo-labial-frente-ia", "Bálsamo labial de cera de abejas: fotografía del producto", "Frente"), ("balsamo-labial-reverso", "Bálsamo labial de cera de abejas: etiqueta posterior", "Reverso")],
-    'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Vista de producto"), ("refresh-frente", "Etiqueta con indicaciones del Refresh roll-on", "Etiqueta posterior")],
+    'balsamo-labial': [("balsamo-labial-frente-ia", "Bálsamo labial de cera de abejas: fotografía del producto", "Frente"), ("balsamo-labial-reverso-estudio", "Bálsamo labial de cera de abejas: etiqueta posterior", "Reverso")],
+    'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Vista de producto"), ("refresh-frente-estudio", "Etiqueta con indicaciones del Refresh roll-on", "Etiqueta posterior")],
 }
 
 KITS = [
