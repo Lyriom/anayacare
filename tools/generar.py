@@ -127,7 +127,7 @@ CATALOG = [
     ("contorno-ojos", "Rostro", "Contorno de ojos", "Extracto de pepino, ácido hialurónico y vitamina E."),
     ("exfoliante-arroz", "Rostro", "Exfoliante de arroz", "Harina de arroz, avena, caolín y óxido de zinc."),
     ("tonico-capilar", "Cabello", "Tónico capilar", "Romero, ortiga y vitamina E."),
-    ("shampoo", "Cabello", "Shampoo líquido", "Extracto de cebolla y vitamina E."),
+    ("shampoo", "Cabello", "Shampoo líquido de cebolla", "Extracto de cebolla y vitamina E."),
     ("jabon-arroz", "Jabones", "Jabón aclarante de arroz", "Harina de arroz, manteca de karité y aceite de almendras."),
     ("jabon-carbon", "Jabones", "Jabón de carbón activado", "Carbón activado, aceite de jojoba y árbol de té."),
     ("jabon-avena", "Jabones", "Jabón de avena", "Avena, manteca de karité, aceite de coco y vainilla."),
