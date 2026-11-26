@@ -30,7 +30,7 @@ LINE = colors.HexColor('#e7d9c4')
 SAND = colors.HexColor('#f6ecdf')
 OUT = ROOT / 'catalogo-anaya.pdf'
 c = canvas.Canvas(str(OUT), pagesize=A4, pageCompression=1)
-c.setTitle('Anaya Co. - Catálogo de productos y costos')
+c.setTitle('Anaya Co. - Catálogo de productos')
 c.setAuthor('Anaya Co.')
 
 def paragraph(text, x, top, width, size=10, leading=15, font='AnayaSans', color=INK):
@@ -69,35 +69,24 @@ for _,title,body in site['ESSENCE']:
 c.setFillColor(GOLD);c.setFont('AnayaSansBold',10);c.drawString(55,top-3,'WhatsApp  +593 96 316 0557')
 c.showPage()
 
-# Tabla de costos: horizontal para mantener las nueve columnas legibles.
-w,h=landscape(A4);c.setPageSize((w,h));background(w,h,2)
-c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(32,h-46,'COSTOS DE PRODUCCIÓN  ·  USD POR UNIDAD')
-c.setFillColor(INK);c.setFont('AnayaSerif',20);c.drawString(32,h-76,'Tabla de costos y precios')
-labels=['Producto','Materia\nprima','Envase y\netiqueta','Mano de\nobra','Costos\nindirectos','Costo\nunitario','Precio de\nventa','Utilidad','Margen']
-widths=[201,70,73,68,70,70,70,65,55]
-scale=(w-64)/sum(widths);widths=[v*scale for v in widths]
-x=32;y=h-110; rowh=20
-c.setFillColor(colors.HexColor('#eee3d2'));c.roundRect(x,y-28,sum(widths),28,3,fill=1,stroke=0)
-xpos=x
-for label,cw in zip(labels,widths):
-    for i,line in enumerate(label.split('\n')):
-        c.setFillColor(INK);c.setFont('AnayaSansBold',7.3);c.drawString(xpos+4,y-10-i*9,line)
-    xpos+=cw
-y-=28
-for idx,(name,parts,total,price,profit,margin) in enumerate(site['cost_rows']()):
-    if idx%2==0: c.setFillColor(colors.HexColor('#f4eee5'));c.rect(x,y-rowh,sum(widths),rowh,fill=1,stroke=0)
-    vals=[name,*[money(v/100) for v in parts],money(total/100),money(price/100),money(profit/100),f'{margin:.1f}'.replace('.',',')+' %']
-    xpos=x
-    for col,(val,cw) in enumerate(zip(vals,widths)):
-        c.setFont('AnayaSansBold' if col in (0,5,7) else 'AnayaSans',7.1 if col==0 else 7.4)
-        c.setFillColor(INK if col!=7 else GOLD)
-        if col==0: c.drawString(xpos+4,y-13,val)
-        else: c.drawRightString(xpos+cw-5,y-13,val)
-        xpos+=cw
+# Tabla de precios para clientes.
+w,h=A4; c.setPageSize(A4); background(w,h,2)
+c.setFillColor(GOLD); c.setFont('AnayaSansBold',9); c.drawString(36,h-46,'CATÁLOGO  ·  PRECIOS EN USD')
+c.setFillColor(INK); c.setFont('AnayaSerif',22); c.drawString(36,h-76,'Productos y precios')
+c.setFillColor(MUTED); c.setFont('AnayaSans',9); c.drawString(36,h-97,'Disponibilidad, pago y envío se confirman por WhatsApp.')
+x=36; y=h-122; rowh=29; width=w-72
+c.setFillColor(colors.HexColor('#eee3d2')); c.rect(x,y-25,width,25,fill=1,stroke=0)
+c.setFillColor(INK); c.setFont('AnayaSansBold',9); c.drawString(x+9,y-17,'Producto'); c.drawRightString(x+width-9,y-17,'Precio')
+y-=25
+for idx,p in enumerate(data['productos']):
+    if idx%2==0:
+        c.setFillColor(colors.HexColor('#f4eee5')); c.rect(x,y-rowh,width,rowh,fill=1,stroke=0)
+    c.setFillColor(INK); c.setFont('AnayaSans',9.5); c.drawString(x+9,y-19,p['nombre'])
+    c.setFont('AnayaSansBold',9.5); c.drawRightString(x+width-9,y-19,money(p['precio']))
     y-=rowh
-c.setFont('AnayaSans',8);c.setFillColor(MUTED)
-c.drawString(32,y-20,'Valores estimados. No incluyen envío, impuestos ni gastos de venta. Margen = utilidad ÷ precio de venta.')
-c.showPage();c.setPageSize(A4)
+c.setFillColor(MUTED); c.setFont('AnayaSans',8); c.drawString(36,y-19,'Precios en dólares estadounidenses. El envío se cotiza por separado.')
+c.drawString(36,y-32,'Algunas imágenes fueron mejoradas con IA; consulta la etiqueta posterior cuando esté disponible.')
+c.showPage()
 
 # Una ficha por producto, con las vistas disponibles y las indicaciones verificables.
 w,h=A4
@@ -113,7 +102,7 @@ for index,p in enumerate(data['productos']):
     for i,f in enumerate(photos[:3]):
         x=x0+i*(image_w+gap)
         c.setFillColor(SAND);c.roundRect(x,image_top-image_h,image_w,image_h,5,fill=1,stroke=0)
-        photo(ROOT/'img/productos'/f"{f['slug']}-800.jpg",x,image_top-image_h,image_w,image_h)
+        photo(ROOT/'img/productos'/f"{f['slug']}-480.jpg",x,image_top-image_h,image_w,image_h)
         c.setFillColor(MUTED);c.setFont('AnayaSans',8);c.drawString(x+3,image_top-image_h-13,f['etiqueta'])
     top=image_top-image_h-40
     def section(title, lines):
@@ -131,6 +120,8 @@ for index,p in enumerate(data['productos']):
         section('Información por confirmar',['Las indicaciones que faltan no se distinguen o no figuran en las fotografías disponibles. Consulta la etiqueta o contacta a Anaya Co.'])
     if len(photos)==1:
         section('Fotografías',['No se dispone de una imagen posterior para este producto.'])
+    if any('referencial' in f['slug'] for f in photos):
+        section('Imagen referencial',['La presentación mostrada es ilustrativa; consulta la presentación disponible.'])
     if top < 40:
         raise ValueError(f"La ficha de {p['nombre']} no cabe en una página: {top}")
     c.showPage()

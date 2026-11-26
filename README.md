@@ -13,7 +13,7 @@ Sitio estático de **Anaya Co.** — *Equilibrio · Ritual · Bienestar* —, co
 - **Pedido por WhatsApp**: se agregan productos, se ajustan cantidades y se envía la lista con el total a **+593 96 316 0557**. Sin JavaScript, cada producto tiene su enlace directo a WhatsApp.
 - **Misión, visión y objetivo** al inicio de la página, justo después de la portada.
 - **Cómo comprar**, **nosotros y valores**, **preguntas frecuentes** y **contacto**.
-- **Costos de producción por unidad** (sección temporal al final): materia prima, envase y etiqueta, mano de obra, costos indirectos, costo unitario, utilidad y margen.
+- **Tabla pública de productos y precios** en el catálogo PDF; no muestra costos ni márgenes.
 - **Política de privacidad** conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (`privacidad.html`).
 
 ## Cambiar precios o textos
@@ -22,7 +22,7 @@ Sitio estático de **Anaya Co.** — *Equilibrio · Ritual · Bienestar* —, co
 2. Desde la raíz del repositorio ejecuta `python3 tools/generar.py`.
 3. Haz `git commit` y `git push`.
 
-Los costos de producción están en `datos/costos.json` (mismos nombres que en `precios.json`); el costo unitario, la utilidad y el margen se calculan solos. Para **quitar la sección de costos**, cambia `MOSTRAR_COSTOS = True` a `False` en `tools/generar.py` y vuelve a ejecutar el script.
+Los costos de producción están en `datos/costos.json` (mismos nombres que en `precios.json`); el costo unitario, la utilidad y el margen se calculan solos. La sección de costos está desactivada en la web, pero el archivo y el historial del repositorio pueden seguir siendo públicos; no trates esa información como privada mientras estén accesibles.
 
 El script regenera `index.html` y `privacidad.html`: precios visibles, botones de pedido, mensajes de WhatsApp, kits con su ahorro y datos para buscadores. Los textos de productos y kits están en `tools/generar.py`; la política de privacidad, en `tools/privacidad-articulo.html`.
 

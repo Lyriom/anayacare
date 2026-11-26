@@ -24,7 +24,7 @@ from iconos import ICON  # noqa: E402
 PRICES = json.loads((REPO / "datos" / "precios.json").read_text(encoding="utf-8"))
 COSTS = json.loads((REPO / "datos" / "costos.json").read_text(encoding="utf-8"))
 SPECS = json.loads((REPO / "datos" / "especificaciones.json").read_text(encoding="utf-8"))
-MOSTRAR_COSTOS = True  # sección temporal de costos de producción al final de la página
+MOSTRAR_COSTOS = False  # la información de costos es interna
 PRIVACY_ARTICLE = (TOOLS / "privacidad-articulo.html").read_text(encoding="utf-8")
 
 WA_NUMBER = "593963160557"
@@ -130,7 +130,7 @@ PRODUCTS = [
 CATALOG = [
     ("tonico-descongestivo", "Rostro", "Tónico descongestivo", "Manzanilla, caléndula y vitamina E."),
     ("espuma-facial", "Rostro", "Espuma facial limpiadora", "Agua de hamamelis, aloe vera, glicerina vegetal y betaína de coco."),
-    ("agua-micelar", "Rostro", "Agua micelar", "Leche virginal, betaína de coco y vitamina E."),
+    ("agua-micelar", "Rostro", "Agua micelar", "Agua, glicerina, extracto de manzanilla, extracto de caléndula, conservante y tensioactivo suave."),
     ("contorno-ojos", "Rostro", "Contorno de ojos", "Extracto de pepino, ácido hialurónico y vitamina E."),
     ("exfoliante-arroz", "Rostro", "Exfoliante de arroz", "Harina de arroz, avena, caolín y óxido de zinc."),
     ("tonico-capilar", "Cabello", "Tónico capilar", "Romero, ortiga y vitamina E."),
@@ -178,10 +178,12 @@ FAQ = [
      "<p>Agrega los productos que quieras con el botón «Agregar al pedido» y pulsa «Enviar pedido por WhatsApp». Se abrirá un chat con la lista y el total listos para enviar. También puedes escribirnos directamente al " + WA_DISPLAY + ".</p>"),
     ("¿Los precios incluyen el envío?",
      "<p>No. Los precios corresponden al producto. El costo y la forma de entrega se coordinan por WhatsApp según tu ubicación.</p>"),
+    ("¿Dónde entregan y cuánto tarda?",
+     "<p>La cobertura, el costo y el plazo de entrega se confirman por WhatsApp según tu ubicación y la disponibilidad del producto.</p>"),
     ("¿Cómo puedo pagar?",
      "<p>Al recibir tu pedido por WhatsApp te indicamos las formas de pago disponibles y coordinamos contigo la entrega.</p>"),
     ("¿Cuánto duran los productos?",
-     "<p>Cada frasco indica en su etiqueta la fecha de elaboración y la de vencimiento. Como los elaboramos en lotes pequeños, siempre recibes producto fresco.</p>"),
+     "<p>Cada frasco indica en su etiqueta la fecha de elaboración y la de vencimiento. Revisa la fecha indicada en tu envase y consulta si tienes dudas.</p>"),
     ("¿Sirven para piel sensible?",
      "<p>Usamos ingredientes de origen natural, pero cualquier piel puede reaccionar a un ingrediente. Te recomendamos probar el producto en una zona pequeña antes del primer uso y suspenderlo si notas irritación. Si tienes alergias conocidas, cuéntanos y te orientamos.</p>"),
     ("¿Cómo debo conservarlos?",
@@ -431,7 +433,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=8">
   <script>document.documentElement.classList.add('has-js')</script>{og}"""
 
 
@@ -580,10 +582,21 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           <p class="hero-overline"><span>ANAYA CO.</span><span>CUIDADO BOTÁNICO · ECUADOR</span></p>
           <h1 id="hero-title">Un momento <em>para ti.</em></h1>
           <p class="lead">Cosmética artesanal para acompañar tus rituales de cuidado, creada en pequeños lotes con ingredientes de origen natural.</p>
-          <div class="hero-actions">
-            <a class="hero-link" href="catalogo/">Explorar el catálogo <span aria-hidden="true">↗</span></a>
-            <span class="hero-price">Productos desde {money(all_min)}</span>
-          </div>
+          <nav class="hero-discover" aria-label="Descubre productos por ritual">
+            <p class="hero-discover-title">ELIGE TU RITUAL <span>01 — 02</span></p>
+            <a class="hero-path" href="catalogo/?categoria=Rostro+y+mirada">
+              <span class="hero-path-number">01</span>
+              <span class="hero-path-copy"><strong>Rostro y mirada</strong><small>Hidratación, luz y cuidado diario</small></span>
+              <span class="hero-path-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="hero-path" href="catalogo/?categoria=Cabello+y+barba">
+              <span class="hero-path-number">02</span>
+              <span class="hero-path-copy"><strong>Cabello y barba</strong><small>Nutrir, proteger y renovar</small></span>
+              <span class="hero-path-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="hero-collection" href="catalogo/"><span>Ver la colección completa</span><span aria-hidden="true">↗</span></a>
+          </nav>
+          <p class="hero-price">Cosmética artesanal desde {money(all_min)}</p>
           <p class="hero-signature">Equilibrio <span>·</span> ritual <span>·</span> bienestar</p>
         </div>
         <div class="hero-editorial" aria-label="Una selección de Anaya Care">
@@ -603,23 +616,10 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       <ul class="wrap">
         <li>{ICON["leaf"]}<span>Ingredientes de origen natural</span></li>
         <li>{ICON["hand"]}<span>Elaborado a mano en pequeños lotes</span></li>
-        <li>{ICON["label"]}<span>Ingredientes y fechas en cada etiqueta</span></li>
+        <li>{ICON["label"]}<span>Consulta los ingredientes y las indicaciones</span></li>
         <li>{ICON["chat"]}<span>Pedido y asesoría por WhatsApp</span></li>
       </ul>
     </section>
-
-    <section class="section" id="esencia" aria-labelledby="esencia-title">
-      <div class="wrap">
-        <div class="section-head center reveal">
-          <p class="eyebrow">Nuestra esencia</p>
-          <h2 id="esencia-title">Misión, visión y objetivo</h2>
-          <div class="ornament" aria-hidden="true"><span></span></div>
-        </div>
-        <div class="essence-grid">{"".join(essence_card(*e) for e in ESSENCE)}
-        </div>
-      </div>
-    </section>
-{cost_section() if MOSTRAR_COSTOS else ""}
 
     <section class="section" id="productos" aria-labelledby="productos-title">
       <div class="wrap">
@@ -627,7 +627,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           <p class="eyebrow">Productos destacados</p>
           <h2 id="productos-title">Rituales para tu piel, cabello y mirada</h2>
           <p>Toca la foto para ver todas las imágenes, ingredientes, modo de uso y precauciones de cada producto.</p>
-          <p class="price-note">Precios en USD. El envío se coordina por WhatsApp.</p>
+          <p class="price-note">Precios en USD. Disponibilidad, pago, cobertura, costo y plazo de entrega se confirman por WhatsApp.</p>
         </div>
         <ul class="product-grid">{"".join(product_card(p) for p in PRODUCTS)}
         </ul>
@@ -665,6 +665,20 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
+    <section class="section" id="esencia" aria-labelledby="esencia-title">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Nuestra esencia</p>
+          <h2 id="esencia-title">Misión, visión y objetivo</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="essence-grid">{"".join(essence_card(*e) for e in ESSENCE)}
+        </div>
+      </div>
+    </section>
+{cost_section() if MOSTRAR_COSTOS else ""}
+
+
     <section class="section" id="nosotros" aria-labelledby="nosotros-title">
       <div class="wrap about-layout">
         <figure class="brand-card reveal">
@@ -679,7 +693,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           </div>
           <ul class="values">
             <li class="reveal"><h3>Naturalidad</h3><p>Priorizamos aceites vegetales, extractos y activos de origen natural.</p></li>
-            <li class="reveal"><h3>Transparencia</h3><p>Declaramos ingredientes, fechas y modo de uso en cada etiqueta.</p></li>
+            <li class="reveal"><h3>Transparencia</h3><p>Compartimos la información disponible y te ayudamos a confirmar cualquier detalle.</p></li>
             <li class="reveal"><h3>Calidad artesanal</h3><p>Lotes pequeños, elaborados y envasados a mano con higiene y precisión.</p></li>
             <li class="reveal"><h3>Cercanía</h3><p>Te asesoramos de forma personal para que elijas lo que tu piel y tu cabello necesitan.</p></li>
           </ul>
