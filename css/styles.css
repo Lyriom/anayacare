@@ -63,6 +63,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Que el atributo hidden gane siempre a los display de componentes */
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
   background: var(--ivory);

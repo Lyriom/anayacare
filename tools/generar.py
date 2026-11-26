@@ -418,7 +418,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=2">
   <script>document.documentElement.classList.add('has-js')</script>{og}"""
 
 
@@ -457,7 +457,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
   <script type="application/ld+json">
 {json_ld}
   </script>
-  <script src="js/main.js" type="module"></script>
+  <script src="js/main.js?v=2" type="module"></script>
 </head>
 <body>
 {header()}
@@ -646,7 +646,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
 privacy = head(f"Política de privacidad · {BRAND}",
                f"Política de privacidad y protección de datos personales de {BRAND}, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.",
                f"{SITE}privacidad.html", og_image=False) + f"""
-  <script src="js/main.js" type="module"></script>
+  <script src="js/main.js?v=2" type="module"></script>
 </head>
 <body>
 {header(current_privacy=True)}

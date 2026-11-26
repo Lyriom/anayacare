@@ -87,8 +87,13 @@ const order = new Map(); // id -> { name, price, qty }
 
 try {
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  // Nombre y precio se toman siempre de la página actual, por si cambiaron desde la última visita.
   for (const item of saved) {
-    if (item?.id && Number.isFinite(item.price) && item.qty > 0) order.set(item.id, item);
+    const btn = item?.id && document.querySelector(`[data-add="${CSS.escape(item.id)}"]`);
+    const qty = Math.floor(Number(item?.qty));
+    if (btn && qty > 0) {
+      order.set(item.id, { name: btn.dataset.name, price: Number(btn.dataset.price), qty });
+    }
   }
 } catch { /* almacenamiento no disponible: el pedido vive solo en esta visita */ }
 
