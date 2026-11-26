@@ -60,7 +60,10 @@ async function verProducto(producto) {
 // Abrir la ficha solicitada desde la página principal una vez cargado el catálogo.
 watch(estado, async (valor) => {
   if (valor !== 'listo') return
-  const id = new URLSearchParams(window.location.search).get('producto')
+  const params = new URLSearchParams(window.location.search)
+  const categoria = params.get('categoria')
+  if (categoria && grupos.value.some((item) => item.valor === categoria)) grupo.value = categoria
+  const id = params.get('producto')
   const producto = productos.value.find((item) => item.id === id)
   if (producto) await verProducto(producto)
 }, { immediate: true })

@@ -316,12 +316,26 @@ button { font: inherit; color: inherit; }
 .hero h1 { max-inline-size: 12ch; margin-block: clamp(2rem, 1rem + 4vw, 4rem) 1.4rem; font-size: clamp(3.2rem, 2rem + 3vw, 5.5rem); line-height: .96; letter-spacing: -.035em; }
 .hero h1 em { display: block; font-weight: 400; color: #667558; }
 .hero .lead { max-inline-size: 28rem; color: #514e43; font-size: clamp(1rem, .94rem + .25vw, 1.125rem); }
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-block-start: 2rem; }
-.hero-link { display: inline-flex; align-items: center; gap: 2.5rem; min-block-size: 3.2rem; padding: .8rem 1.1rem; color: #fffdf9; background: #354638; font-size: .9rem; font-weight: 500; text-decoration: none; }
-.hero-link:hover { background: #243629; }
-.hero-link span { font-size: 1.25rem; }
-.hero-price { font-size: .85rem; color: #5d5e51; }
-.hero-signature { display: flex; gap: .45rem; margin-block-start: 2.75rem; color: #67735e; font-family: var(--font-display); font-size: 1.2rem; font-style: italic; }
+.hero-discover { inline-size: min(100%, 31rem); margin-block-start: clamp(2rem, 1.2rem + 2vw, 3rem); border-block-start: 1px solid #8d947f; }
+.hero-discover-title { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem .25rem .5rem; color: #475b49; font-size: .64rem; font-weight: 600; letter-spacing: .16em; }
+.hero-discover-title span { color: #67735e; letter-spacing: .08em; }
+.hero-path { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr) 2.5rem; align-items: center; gap: .65rem; min-block-size: 5.25rem; padding: .55rem .25rem; border-block-start: 1px solid #bec4b5; color: var(--ink); text-decoration: none; }
+.hero-path-number { align-self: start; padding-block-start: .4rem; color: #60735f; font-size: .69rem; font-weight: 600; letter-spacing: .1em; }
+.hero-path-copy { display: grid; gap: .12rem; }
+.hero-path-copy strong { font-family: var(--font-display); font-size: clamp(1.48rem, 1.25rem + .75vw, 1.9rem); font-weight: 500; line-height: 1; }
+.hero-path-copy small { color: #575a4f; font-size: .75rem; line-height: 1.35; }
+.hero-path-arrow { display: grid; place-items: center; inline-size: 2.35rem; block-size: 2.35rem; border: 1px solid #788775; border-radius: 50%; color: #344d38; font-size: 1.15rem; }
+.hero-path:hover, .hero-path:focus-visible { padding-inline: .7rem; background: #e2e7da; }
+.hero-path:hover .hero-path-arrow, .hero-path:focus-visible .hero-path-arrow { border-color: #344d38; background: #344d38; color: #fffdf9; }
+.hero-collection { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-block-size: 3.4rem; padding: .7rem .25rem; border-block: 1px solid #8d947f; color: #344d38; font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+.hero-collection span:last-child { font-size: 1.15rem; line-height: 1; }
+.hero-collection:hover, .hero-collection:focus-visible { padding-inline: .7rem; color: #243629; background: #e2e7da; }
+.hero-price { margin-block-start: .8rem; color: #575a4f; font-size: .76rem; letter-spacing: .025em; }
+.hero-signature { display: flex; gap: .45rem; margin-block-start: 2rem; color: #67735e; font-family: var(--font-display); font-size: 1.2rem; font-style: italic; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-path, .hero-collection { transition: background-color .2s ease, padding-inline .2s ease; }
+  .hero-path-arrow { transition: background-color .2s ease, color .2s ease; }
+}
 .hero-editorial { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(.75rem, 1.5vw, 1.5rem); align-items: end; }
 .hero-product { min-inline-size: 0; margin: 0; }
 .hero-product picture { display: block; overflow: hidden; background: #f5e9df; }
@@ -335,6 +349,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 39.99rem) {
   .hero-inner { gap: 2rem; }
   .hero h1 { margin-block-start: 2rem; }
+  .hero-discover { inline-size: 100%; }
   .hero-signature { margin-block-start: 1.75rem; }
   .hero-product-secondary { padding-block-end: 1.5rem; }
 }

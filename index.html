@@ -11,7 +11,7 @@
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=7">
   <script>document.documentElement.classList.add('has-js')</script>
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_EC">
@@ -155,10 +155,21 @@
           <p class="hero-overline"><span>ANAYA CO.</span><span>CUIDADO BOTÁNICO · ECUADOR</span></p>
           <h1 id="hero-title">Un momento <em>para ti.</em></h1>
           <p class="lead">Cosmética artesanal para acompañar tus rituales de cuidado, creada en pequeños lotes con ingredientes de origen natural.</p>
-          <div class="hero-actions">
-            <a class="hero-link" href="catalogo/">Explorar el catálogo <span aria-hidden="true">↗</span></a>
-            <span class="hero-price">Productos desde $4,90</span>
-          </div>
+          <nav class="hero-discover" aria-label="Descubre productos por ritual">
+            <p class="hero-discover-title">ELIGE TU RITUAL <span>01 — 02</span></p>
+            <a class="hero-path" href="catalogo/?categoria=Rostro+y+mirada">
+              <span class="hero-path-number">01</span>
+              <span class="hero-path-copy"><strong>Rostro y mirada</strong><small>Hidratación, luz y cuidado diario</small></span>
+              <span class="hero-path-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="hero-path" href="catalogo/?categoria=Cabello+y+barba">
+              <span class="hero-path-number">02</span>
+              <span class="hero-path-copy"><strong>Cabello y barba</strong><small>Nutrir, proteger y renovar</small></span>
+              <span class="hero-path-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="hero-collection" href="catalogo/"><span>Ver la colección completa</span><span aria-hidden="true">↗</span></a>
+          </nav>
+          <p class="hero-price">Cosmética artesanal desde $4,90</p>
           <p class="hero-signature">Equilibrio <span>·</span> ritual <span>·</span> bienestar</p>
         </div>
         <div class="hero-editorial" aria-label="Una selección de Anaya Care">
