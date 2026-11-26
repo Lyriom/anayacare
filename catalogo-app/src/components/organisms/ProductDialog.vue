@@ -54,22 +54,6 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
           </header>
           <p v-if="producto.descripcion" class="desc">{{ producto.descripcion }}</p>
 
-          <section>
-            <h2>Ingredientes</h2>
-            <p>{{ producto.ingredientes }}</p>
-            <p v-if="producto.inci" class="inci">INCI: {{ producto.inci }}</p>
-          </section>
-          <section v-if="producto.uso?.length">
-            <h2>Modo de uso</h2>
-            <ol class="list"><li v-for="paso in producto.uso" :key="paso">{{ paso }}</li></ol>
-          </section>
-          <section v-if="producto.precauciones?.length">
-            <h2>Precauciones</h2>
-            <ul class="list"><li v-for="nota in producto.precauciones" :key="nota">{{ nota }}</li></ul>
-          </section>
-          <p v-if="!producto.uso?.length || !producto.precauciones?.length" class="nota">Las indicaciones que faltan no se distinguen o no figuran en las fotografías disponibles. Consulta la etiqueta o escríbenos para confirmarlas.</p>
-          <p v-if="!producto.destacado" class="nota">Producto bajo pedido: lo preparamos en lotes pequeños y te confirmamos el tiempo de preparación por WhatsApp.</p>
-
           <div class="buy">
             <PriceTag :valor="producto.precio" tamano="l" />
             <BaseButton variante="gold" @click="emit('agregar', producto)">Agregar al pedido</BaseButton>
@@ -77,6 +61,22 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
               <BaseIcon nombre="whatsapp" />Consultar por WhatsApp
             </BaseButton>
           </div>
+          <div class="details" aria-label="Información del producto">
+            <details :key="`${producto.id}-ingredientes`">
+              <summary>Ingredientes</summary>
+              <div class="detail-content"><p>{{ producto.ingredientes }}</p><p v-if="producto.inci" class="inci">INCI: {{ producto.inci }}</p></div>
+            </details>
+            <details v-if="producto.uso?.length" :key="`${producto.id}-uso`">
+              <summary>Modo de uso</summary>
+              <div class="detail-content"><ol class="list"><li v-for="paso in producto.uso" :key="paso">{{ paso }}</li></ol></div>
+            </details>
+            <details v-if="producto.precauciones?.length" :key="`${producto.id}-precauciones`">
+              <summary>Precauciones</summary>
+              <div class="detail-content"><ul class="list"><li v-for="nota in producto.precauciones" :key="nota">{{ nota }}</li></ul></div>
+            </details>
+          </div>
+          <p v-if="!producto.uso?.length || !producto.precauciones?.length" class="nota">Las indicaciones que faltan no se distinguen o no figuran en las fotografías disponibles. Consulta la etiqueta o escríbenos para confirmarlas.</p>
+          <p v-if="!producto.destacado" class="nota">Producto bajo pedido: lo preparamos en lotes pequeños y te confirmamos el tiempo de preparación por WhatsApp.</p>
         </div>
       </div>
     </template>
@@ -99,16 +99,20 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
 h1 { font-size: clamp(2rem, 1.6rem + 1.5vw, 2.7rem); margin-block: 0.4rem 0.25rem; padding-inline-end: 2.5rem; }
 .lema { font-family: var(--font-display); font-style: italic; font-size: 1.25rem; color: var(--rose-ink); }
 .desc { color: var(--ink-soft); }
-h2 {
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold-text);
-  margin-block-end: 0.6rem;
+.details { border-block-start: 1px solid var(--line); }
+details { border-block-end: 1px solid var(--line); }
+summary { display: flex; align-items: center; gap: 0.65rem; padding: 0.95rem 0; color: var(--ink); font-weight: 600; cursor: pointer; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: '›'; color: var(--gold-text); font-size: 1.35rem; line-height: 1; rotate: 0deg; }
+details[open] > summary::before { rotate: 90deg; }
+summary:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 3px; border-radius: 0.25rem; }
+.detail-content { color: var(--ink-soft); padding: 0 0 1rem 1.2rem; }
+details::details-content { interpolate-size: allow-keywords; overflow: clip; contain: layout; }
+details:not([open])::details-content { block-size: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  summary::before { transition: rotate 0.2s; }
+  details::details-content { transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete; }
 }
-section p, section li { color: var(--ink-soft); }
 .list { display: grid; gap: 0.35rem; padding-inline-start: 1.25rem; }
 .inci { font-size: 0.9rem; margin-block-start: 0.6rem; }
 .nota { font-size: 0.925rem; color: var(--ink-soft); padding: 0.85rem 1rem; border-inline-start: 2px solid var(--gold); background: var(--white); }
