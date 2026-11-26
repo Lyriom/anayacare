@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <picture>
-    <source type="image/avif" :srcset="srcsetFoto(slug, 'avif')" :sizes="sizes">
+    <source v-if="['pestanas-frente', 'pestanas-reverso', 'serum-hialuronico-frente', 'serum-hialuronico-reverso', 'protector-termico-frente', 'protector-termico-uso', 'protector-termico-precauciones', 'capilar-barba-frente', 'capilar-barba-reverso'].includes(slug)" type="image/avif" :srcset="srcsetFoto(slug, 'avif')" :sizes="sizes">
     <source type="image/webp" :srcset="srcsetFoto(slug, 'webp')" :sizes="sizes">
     <img
       :src="srcFoto(slug)" :srcset="srcsetFoto(slug, 'jpg')" :sizes="sizes"
@@ -23,5 +23,5 @@ defineProps({
 </template>
 
 <style scoped>
-img { inline-size: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: inherit; }
+img { inline-size: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: #f8e9d9; border-radius: inherit; }
 </style>

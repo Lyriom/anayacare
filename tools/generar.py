@@ -51,8 +51,9 @@ def picture(slug, alt, sizes, *, base="img/productos", widths=(480, 800, 1200), 
         attrs.append(f'loading="{loading}"')
     if fetchpriority:
         attrs.append(f'fetchpriority="{fetchpriority}"')
+    avif = f'<source type="image/avif" srcset="{srcset("avif")}" sizes="{sizes}">' if (REPO / base / f"{slug}-480.avif").exists() else ""
     return ("<picture>"
-            f'<source type="image/avif" srcset="{srcset("avif")}" sizes="{sizes}">'
+            f'{avif}'
             f'<source type="image/webp" srcset="{srcset("webp")}" sizes="{sizes}">'
             f"<img {' '.join(attrs)}></picture>")
 
@@ -142,6 +143,22 @@ CATALOG = [
     ("refresh", "Bienestar", "Refresh roll-on", "Aceite de almendras y aceite esencial de menta."),
     ("gel-neutro", "Bienestar", "Gel neutro", "Gel de textura ligera, sin fragancia."),
 ]
+
+CATALOG_PHOTOS = {
+    'exfoliante-arroz': [("exfoliante-arroz-frente-ia", "Exfoliante de arroz: fotografía del producto", "Frente"), ("exfoliante-arroz-reverso", "Exfoliante de arroz: etiqueta posterior", "Reverso")],
+    'vela-masaje': [("vela-masaje-frente-ia", "Vela de masaje: fotografía del producto", "Frente"), ("vela-masaje-reverso", "Vela de masaje: etiqueta posterior", "Reverso")],
+    'gel-neutro': [("gel-neutro-frente-ia", "Gel neutro: fotografía del producto", "Frente"), ("gel-neutro-reverso", "Gel neutro: etiqueta posterior", "Reverso")],
+    'tonico-capilar': [("tonico-capilar-frente-ia", "Tónico capilar: fotografía del producto", "Frente"), ("tonico-capilar-reverso", "Tónico capilar: etiqueta posterior", "Reverso")],
+    'contorno-ojos': [("contorno-ojos-frente-ia", "Contorno de ojos: fotografía del producto", "Frente"), ("contorno-ojos-reverso", "Contorno de ojos: etiqueta posterior", "Reverso")],
+    'tonico-descongestivo': [("tonico-descongestivo-frente-ia", "Tónico descongestivo: fotografía del producto", "Frente"), ("tonico-descongestivo-reverso", "Tónico descongestivo: etiqueta posterior", "Reverso")],
+    'espuma-facial': [("espuma-facial-frente-ia", "Espuma facial limpiadora: fotografía del producto", "Frente"), ("espuma-facial-reverso", "Espuma facial limpiadora: etiqueta posterior", "Reverso")],
+    'agua-micelar': [("agua-micelar-frente-ia", "Agua micelar: fotografía del producto", "Frente"), ("agua-micelar-reverso", "Agua micelar: etiqueta posterior", "Reverso")],
+    'jabon-arroz': [("jabon-arroz-frente-ia", "Jabón aclarante de arroz: fotografía del producto", "Frente"), ("jabon-arroz-reverso", "Jabón aclarante de arroz: etiqueta posterior", "Reverso")],
+    'jabon-avena': [("jabon-avena-frente-ia", "Jabón de avena: fotografía del producto", "Frente"), ("jabon-avena-reverso", "Jabón de avena: etiqueta posterior", "Reverso")],
+    'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente")],
+    'balsamo-labial': [("balsamo-labial-frente-ia", "Bálsamo labial de cera de abejas: fotografía del producto", "Frente"), ("balsamo-labial-reverso", "Bálsamo labial de cera de abejas: etiqueta posterior", "Reverso")],
+    'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Frente")],
+}
 
 KITS = [
     ("kit-mirada", "Kit Mirada & Rostro", "Para tu ritual de noche: pestañas y piel hidratadas.",
@@ -273,10 +290,13 @@ def product_dialog(p):
 
 def catalog_card(pid, cat, name, ingredients):
     price = PRICES[pid]
+    photos = CATALOG_PHOTOS.get(pid, [])
+    media = (f'<a class="mini-media" href="catalogo/" aria-label="Ver {escape(name)} en el catálogo">'
+             f'{picture(photos[0][0], photos[0][1], CARD_SIZES)}</a>') if photos else ''
     return f"""
         <li>
           <article class="mini reveal">
-            <header>{ICON[cat]}<hgroup><p class="eyebrow">{escape(cat)}</p><h3>{escape(name)}</h3></hgroup></header>
+            {media}<header>{ICON[cat]}<hgroup><p class="eyebrow">{escape(cat)}</p><h3>{escape(name)}</h3></hgroup></header>
             <p>{escape(ingredients)}</p>
             <footer>
               <p class="price">{money(price)}</p>
@@ -748,7 +768,7 @@ GROUPS = {"Mirada": "Rostro y mirada", "Rostro": "Rostro y mirada", "Cabello": "
           "Cabello y barba": "Cabello y barba", "Jabones": "Jabones", "Labios": "Labios", "Bienestar": "Bienestar"}
 # Fotos de los productos bajo pedido: id -> [(slug, alt, etiqueta)]. Las imágenes van en
 # img/productos/<slug>-{480,800,1200}.{avif,webp,jpg}, igual que las de los destacados.
-CATALOG_PHOTOS = {}
+
 
 
 def photo_json(photos):

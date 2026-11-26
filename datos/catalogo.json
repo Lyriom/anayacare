@@ -159,7 +159,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 9.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "tonico-descongestivo-frente-ia",
+          "alt": "Tónico descongestivo: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "tonico-descongestivo-reverso",
+          "alt": "Tónico descongestivo: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "espuma-facial",
@@ -174,7 +185,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 12.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "espuma-facial-frente-ia",
+          "alt": "Espuma facial limpiadora: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "espuma-facial-reverso",
+          "alt": "Espuma facial limpiadora: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "agua-micelar",
@@ -189,7 +211,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 7.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "agua-micelar-frente-ia",
+          "alt": "Agua micelar: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "agua-micelar-reverso",
+          "alt": "Agua micelar: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "contorno-ojos",
@@ -204,7 +237,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 18.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "contorno-ojos-frente-ia",
+          "alt": "Contorno de ojos: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "contorno-ojos-reverso",
+          "alt": "Contorno de ojos: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "exfoliante-arroz",
@@ -219,7 +263,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 9.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "exfoliante-arroz-frente-ia",
+          "alt": "Exfoliante de arroz: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "exfoliante-arroz-reverso",
+          "alt": "Exfoliante de arroz: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "tonico-capilar",
@@ -234,7 +289,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 10.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "tonico-capilar-frente-ia",
+          "alt": "Tónico capilar: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "tonico-capilar-reverso",
+          "alt": "Tónico capilar: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "shampoo",
@@ -264,7 +330,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 4.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "jabon-arroz-frente-ia",
+          "alt": "Jabón aclarante de arroz: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "jabon-arroz-reverso",
+          "alt": "Jabón aclarante de arroz: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "jabon-carbon",
@@ -279,7 +356,13 @@
       "uso": null,
       "precauciones": null,
       "precio": 5.5,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "jabon-carbon-frente-ia",
+          "alt": "Jabón de carbón activado: fotografía del producto",
+          "etiqueta": "Frente"
+        }
+      ]
     },
     {
       "id": "jabon-avena",
@@ -294,7 +377,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 5.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "jabon-avena-frente-ia",
+          "alt": "Jabón de avena: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "jabon-avena-reverso",
+          "alt": "Jabón de avena: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "jabon-cafe",
@@ -324,7 +418,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 5.5,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "balsamo-labial-frente-ia",
+          "alt": "Bálsamo labial de cera de abejas: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "balsamo-labial-reverso",
+          "alt": "Bálsamo labial de cera de abejas: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "vela-masaje",
@@ -339,7 +444,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 13.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "vela-masaje-frente-ia",
+          "alt": "Vela de masaje: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "vela-masaje-reverso",
+          "alt": "Vela de masaje: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     },
     {
       "id": "refresh",
@@ -354,7 +470,13 @@
       "uso": null,
       "precauciones": null,
       "precio": 8.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "refresh-frente-ia",
+          "alt": "Refresh roll-on: fotografía del producto",
+          "etiqueta": "Frente"
+        }
+      ]
     },
     {
       "id": "gel-neutro",
@@ -369,7 +491,18 @@
       "uso": null,
       "precauciones": null,
       "precio": 4.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "gel-neutro-frente-ia",
+          "alt": "Gel neutro: fotografía del producto",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "gel-neutro-reverso",
+          "alt": "Gel neutro: etiqueta posterior",
+          "etiqueta": "Reverso"
+        }
+      ]
     }
   ],
   "kits": [
