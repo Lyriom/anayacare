@@ -20,7 +20,11 @@ const props = defineProps({
 })
 const emit = defineEmits(['agregar'])
 
-const { dialogo, abrir } = useModal()
+const { dialogo, abrir: mostrar } = useModal()
+const abrir = () => {
+  if (dialogo.value) dialogo.value.scrollTop = 0
+  mostrar()
+}
 defineExpose({ abrir })
 
 const titulo = useId()
@@ -37,7 +41,7 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
         <RoundButton etiqueta="Cerrar" type="submit" value="cerrar">×</RoundButton>
       </form>
       <div class="layout">
-        <PhotoGallery v-if="producto.fotos.length" :fotos="producto.fotos" />
+        <PhotoGallery v-if="producto.fotos.length" :key="producto.id" :fotos="producto.fotos" />
         <div v-else class="sin-fotos"><ProductMedia :producto="producto" /></div>
 
         <div class="body">
@@ -81,13 +85,13 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
 <style scoped>
 .close { position: sticky; inset-block-start: 0; z-index: 2; block-size: 0; }
 .close :deep(.round) { position: absolute; inset-block-start: 0.75rem; inset-inline-end: 0.75rem; }
-.layout { display: grid; }
+.layout { display: grid; align-items: start; }
 @media (min-width: 52rem) {
   .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
 }
 .sin-fotos { padding: 0.5rem; background: var(--sand); }
 .sin-fotos :deep(.media) { border-radius: var(--radius-s); }
-.body { display: grid; gap: 1.4rem; align-content: start; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+.body { display: grid; gap: 1.1rem; align-content: start; padding: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
 h1 { font-size: clamp(2rem, 1.6rem + 1.5vw, 2.7rem); margin-block: 0.4rem 0.25rem; padding-inline-end: 2.5rem; }
 .lema { font-family: var(--font-display); font-style: italic; font-size: 1.25rem; color: var(--rose-ink); }
 .desc { color: var(--ink-soft); }

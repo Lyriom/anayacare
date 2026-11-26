@@ -8,6 +8,7 @@ defineProps({
   /** Ancho que ocupará la imagen, para que el navegador elija el archivo adecuado. */
   sizes: { type: String, default: '(min-width: 76rem) 17rem, (min-width: 36rem) 45vw, 92vw' },
   carga: { type: String, default: 'lazy' },
+  prioridad: { type: String, default: undefined },
 })
 </script>
 
@@ -17,7 +18,7 @@ defineProps({
     <source type="image/webp" :srcset="srcsetFoto(slug, 'webp')" :sizes="sizes">
     <img
       :src="srcFoto(slug)" :srcset="srcsetFoto(slug, 'jpg')" :sizes="sizes"
-      :alt="alt" width="800" height="1000" :loading="carga" decoding="async"
+      :alt="alt" width="800" height="1000" :loading="carga" :fetchpriority="prioridad" decoding="async"
     >
   </picture>
 </template>

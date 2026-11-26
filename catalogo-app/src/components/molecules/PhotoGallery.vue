@@ -1,47 +1,89 @@
 <script setup>
-// Molécula: todas las fotos de un producto; la primera grande y el resto en mosaico.
+// Una imagen principal y botones para alternar las vistas de la etiqueta.
+import { ref, watch } from 'vue'
 import ProductPicture from '../atoms/ProductPicture.vue'
+import { srcFoto } from '../../utils/formato.js'
 
-defineProps({
-  /** [{ slug, alt, etiqueta }] */
-  fotos: { type: Array, required: true },
-})
-const SIZES_GRANDE = '(min-width: 62rem) 29rem, (min-width: 52rem) 46vw, 92vw'
-const SIZES_MINI = '(min-width: 62rem) 14rem, (min-width: 52rem) 23vw, 46vw'
+const props = defineProps({ fotos: { type: Array, required: true } })
+const activa = ref(0)
+watch(() => props.fotos, () => { activa.value = 0 })
 </script>
 
 <template>
-  <div :class="['gallery', { pair: fotos.length === 2 }]">
-    <figure v-for="(foto, i) in fotos" :key="foto.slug">
+  <div class="gallery">
+    <figure class="main-photo">
       <ProductPicture
-        :slug="foto.slug" :alt="foto.alt"
-        :sizes="i === 0 || fotos.length === 2 ? SIZES_GRANDE : SIZES_MINI"
-        :carga="i === 0 ? 'eager' : 'lazy'"
+        :slug="fotos[activa].slug" :alt="fotos[activa].alt"
+        sizes="(min-width: 52rem) 29rem, 90vw" carga="eager" prioridad="low"
       />
-      <figcaption>{{ foto.etiqueta }}</figcaption>
+      <figcaption>{{ fotos[activa].etiqueta }}</figcaption>
     </figure>
+    <div v-if="fotos.length > 1" class="views" role="group" aria-label="Vistas del producto">
+      <button
+        v-for="(foto, i) in fotos" :key="foto.slug" type="button"
+        class="view" :aria-pressed="i === activa" @click="activa = i"
+      >
+        <img :src="srcFoto(foto.slug, 480)" alt="" width="480" height="600" loading="lazy" fetchpriority="low">
+        <span>{{ foto.etiqueta }}</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background: var(--sand);
+  gap: 0.9rem;
   align-content: start;
+  padding: 1.25rem;
+  min-inline-size: 0;
+  background: #f1e7db;
 }
-figure { margin: 0; position: relative; border-radius: var(--radius-s); overflow: hidden; }
-figure:first-child, .pair figure { grid-column: 1 / -1; }
+.main-photo {
+  position: relative;
+  display: grid;
+  margin: 0;
+  block-size: clamp(15rem, 42dvh, 26rem);
+  min-inline-size: 0;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #f8e9d9;
+}
+.main-photo :deep(picture) { display: block; min-block-size: 0; }
+.main-photo :deep(img) { inline-size: 100%; block-size: 100%; aspect-ratio: auto; object-fit: contain; }
 figcaption {
   position: absolute;
-  inset-inline-start: 0.5rem;
-  inset-block-end: 0.5rem;
-  padding: 0.25rem 0.7rem;
+  inset-inline-start: 0.75rem;
+  inset-block-end: 0.75rem;
+  padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: rgb(255 253 249 / 0.9);
-  font-size: 0.78rem;
+  background: rgb(255 253 249 / 0.94);
   color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+.views { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.view {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-block-size: 3.5rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.3rem;
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+  background: rgb(255 253 249 / 0.8);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.view img { inline-size: 2.5rem; block-size: 2.75rem; object-fit: contain; border-radius: 0.4rem; background: #f8e9d9; }
+.view[aria-pressed="true"] { border-color: var(--gold-text); box-shadow: 0 0 0 1px var(--gold-text); background: #fffdf9; }
+.view:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+@media (min-width: 52rem) {
+  .gallery { position: sticky; top: 0; align-self: start; padding: 1.5rem; }
+}
+@media (max-width: 40rem) {
+  .gallery { padding: 1rem; }
+  .main-photo { block-size: clamp(13rem, 36dvh, 20rem); }
 }
 </style>
