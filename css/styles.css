@@ -392,7 +392,8 @@ button { font: inherit; color: inherit; }
 
 /* ---------- Secciones ---------- */
 .section { padding-block: clamp(3.5rem, 2rem + 5vw, 6.5rem); }
-.section-alt { background: var(--paper); }
+/* Fondos alternados: se recalculan solos si se agrega o quita una sección */
+main > .section:nth-child(odd of .section) { background: var(--paper); }
 .section-head { display: grid; gap: 0.75rem; max-inline-size: 46rem; margin-block-end: clamp(2rem, 1.5rem + 2vw, 3.25rem); }
 .section-head.center { margin-inline: auto; text-align: center; justify-items: center; }
 .section-head h2 { font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3.4rem); }

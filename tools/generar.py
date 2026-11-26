@@ -407,7 +407,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=4">
+  <link rel="stylesheet" href="css/styles.css?v=5">
   <script>document.documentElement.classList.add('has-js')</script>{og}"""
 
 
@@ -544,7 +544,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
   <script type="application/ld+json">
 {json_ld}
   </script>
-  <script src="js/main.js?v=4" type="module"></script>
+  <script src="js/main.js?v=5" type="module"></script>
 </head>
 <body>
 {header()}
@@ -578,7 +578,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </ul>
     </section>
 
-    <section class="section section-alt" id="esencia" aria-labelledby="esencia-title">
+    <section class="section" id="esencia" aria-labelledby="esencia-title">
       <div class="wrap">
         <div class="section-head center reveal">
           <p class="eyebrow">Nuestra esencia</p>
@@ -589,6 +589,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
         </div>
       </div>
     </section>
+{cost_section() if MOSTRAR_COSTOS else ""}
 
     <section class="section" id="productos" aria-labelledby="productos-title">
       <div class="wrap">
@@ -609,7 +610,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section section-alt" id="catalogo" aria-labelledby="catalogo-title">
+    <section class="section" id="catalogo" aria-labelledby="catalogo-title">
       <div class="wrap">
         <div class="section-head reveal">
           <p class="eyebrow">Bajo pedido</p>
@@ -633,7 +634,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section section-alt" id="nosotros" aria-labelledby="nosotros-title">
+    <section class="section" id="nosotros" aria-labelledby="nosotros-title">
       <div class="wrap about-layout">
         <figure class="brand-card reveal">
           {logo_img("logo-completo", f"Logotipo de {BRAND}: figura dorada con brazos abiertos dentro de un círculo y el lema Equilibrio, ritual, bienestar", 900, 864, loading="lazy")}
@@ -670,7 +671,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section section-alt" id="contacto" aria-labelledby="contacto-title">
+    <section class="section" id="contacto" aria-labelledby="contacto-title">
       <div class="wrap">
         <div class="contact reveal">
           <div>
@@ -684,7 +685,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           </div>
         </div>
       </div>
-    </section>{cost_section() if MOSTRAR_COSTOS else ""}
+    </section>
   </main>
 {footer()}
 
@@ -726,7 +727,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
 privacy = head(f"Política de privacidad · {BRAND}",
                f"Política de privacidad y protección de datos personales de {BRAND}, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.",
                f"{SITE}privacidad.html", og_image=False) + f"""
-  <script src="js/main.js?v=4" type="module"></script>
+  <script src="js/main.js?v=5" type="module"></script>
 </head>
 <body>
 {header(current_privacy=True)}
