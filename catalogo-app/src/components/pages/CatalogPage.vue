@@ -111,10 +111,13 @@ const verPedido = () => pedidoDialogo.value.abrir()
 
     <template #capas>
       <OrderBar :cantidad="pedido.cantidad.value" :total="pedido.total.value" @ver="verPedido" />
-      <ProductDialog ref="ficha" :producto="seleccionado" :marca="marca" :whatsapp="whatsapp" @agregar="agregar" />
+      <ProductDialog
+        ref="ficha" :producto="seleccionado" :marca="marca" :whatsapp="whatsapp" :anuncio="mensaje"
+        @agregar="agregar"
+      />
       <OrderDialog
         ref="pedidoDialogo" :lineas="pedido.lineas.value" :total="pedido.total.value"
-        :marca="marca" :whatsapp="whatsapp" @cambiar="cambiarLinea" @vaciar="vaciar"
+        :marca="marca" :whatsapp="whatsapp" :anuncio="mensaje" @cambiar="cambiarLinea" @vaciar="vaciar"
       />
       <p class="visually-hidden" aria-live="polite">{{ mensaje }}</p>
     </template>

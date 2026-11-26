@@ -15,6 +15,8 @@ const props = defineProps({
   producto: { type: Object, default: null },
   marca: { type: String, required: true },
   whatsapp: { type: String, required: true },
+  /** Texto para lectores de pantalla: el resto de la página queda inerte mientras el modal está abierto. */
+  anuncio: { type: String, default: '' },
 })
 const emit = defineEmits(['agregar'])
 
@@ -71,6 +73,7 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
         </div>
       </div>
     </template>
+    <p class="visually-hidden" aria-live="polite">{{ anuncio }}</p>
   </dialog>
 </template>
 

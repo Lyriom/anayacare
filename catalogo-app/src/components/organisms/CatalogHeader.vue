@@ -25,7 +25,7 @@ const emit = defineEmits(['ver-pedido'])
       </nav>
       <BaseButton variante="ghost" class="cart" @click="emit('ver-pedido')">
         <BaseIcon nombre="bolsa" />
-        <span>Pedido</span>
+        <span class="label">Pedido</span>
         <span class="count" :data-empty="cantidad === 0 || null">{{ cantidad }}</span>
         <span class="visually-hidden">{{ cantidad === 1 ? 'producto' : 'productos' }}</span>
       </BaseButton>
@@ -71,7 +71,13 @@ nav a:hover, nav a[aria-current="page"] { text-decoration: underline; text-decor
 /* En pantallas angostas solo quedan el logo, «Inicio» y el pedido. */
 @media (width < 40rem) {
   nav li:not(:first-child) { display: none; }
-  .cart > span:not(.count) { display: none; }
+  /* «Pedido» se oculta solo a la vista: el lector de pantalla sigue leyendo «Pedido 2 productos». */
+  .label {
+    position: absolute;
+    inline-size: 1px; block-size: 1px;
+    overflow: hidden; clip-path: inset(50%);
+    white-space: nowrap;
+  }
   .cart { padding-inline: 0.85rem; }
 }
 @media (width < 22rem) {

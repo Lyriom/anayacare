@@ -14,6 +14,8 @@ const props = defineProps({
   total: { type: Number, required: true },
   marca: { type: String, required: true },
   whatsapp: { type: String, required: true },
+  /** Texto para lectores de pantalla: el resto de la página queda inerte mientras el modal está abierto. */
+  anuncio: { type: String, default: '' },
 })
 const emit = defineEmits(['cambiar', 'vaciar'])
 
@@ -64,6 +66,7 @@ async function vaciar() {
         <button type="button" class="link" @click="vaciar">Vaciar pedido</button>
       </div>
     </div>
+    <p class="visually-hidden" aria-live="polite">{{ anuncio }}</p>
   </dialog>
 </template>
 
