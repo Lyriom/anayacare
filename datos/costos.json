@@ -1,0 +1,22 @@
+{
+  "pestanas":             { "materia_prima": 1.20, "envase_etiqueta": 1.35, "mano_obra": 1.50, "cif": 0.55 },
+  "serum":                { "materia_prima": 3.10, "envase_etiqueta": 1.45, "mano_obra": 1.80, "cif": 0.75 },
+  "protector":            { "materia_prima": 2.10, "envase_etiqueta": 1.30, "mano_obra": 1.20, "cif": 0.50 },
+  "capilar-barba":        { "materia_prima": 1.70, "envase_etiqueta": 1.30, "mano_obra": 1.20, "cif": 0.50 },
+
+  "tonico-descongestivo": { "materia_prima": 0.90, "envase_etiqueta": 1.10, "mano_obra": 1.00, "cif": 0.45 },
+  "espuma-facial":        { "materia_prima": 1.60, "envase_etiqueta": 1.60, "mano_obra": 1.20, "cif": 0.55 },
+  "agua-micelar":         { "materia_prima": 0.85, "envase_etiqueta": 0.95, "mano_obra": 0.80, "cif": 0.40 },
+  "contorno-ojos":        { "materia_prima": 2.60, "envase_etiqueta": 1.70, "mano_obra": 1.70, "cif": 0.70 },
+  "exfoliante-arroz":     { "materia_prima": 1.10, "envase_etiqueta": 1.00, "mano_obra": 1.00, "cif": 0.45 },
+  "tonico-capilar":       { "materia_prima": 1.10, "envase_etiqueta": 1.10, "mano_obra": 1.10, "cif": 0.45 },
+  "shampoo":              { "materia_prima": 1.40, "envase_etiqueta": 0.95, "mano_obra": 0.90, "cif": 0.45 },
+  "jabon-arroz":          { "materia_prima": 0.75, "envase_etiqueta": 0.35, "mano_obra": 0.60, "cif": 0.30 },
+  "jabon-carbon":         { "materia_prima": 0.95, "envase_etiqueta": 0.35, "mano_obra": 0.60, "cif": 0.30 },
+  "jabon-avena":          { "materia_prima": 0.95, "envase_etiqueta": 0.35, "mano_obra": 0.60, "cif": 0.30 },
+  "jabon-cafe":           { "materia_prima": 0.85, "envase_etiqueta": 0.35, "mano_obra": 0.60, "cif": 0.30 },
+  "balsamo-labial":       { "materia_prima": 0.60, "envase_etiqueta": 0.55, "mano_obra": 0.55, "cif": 0.25 },
+  "vela-masaje":          { "materia_prima": 2.40, "envase_etiqueta": 1.50, "mano_obra": 1.30, "cif": 0.60 },
+  "refresh":              { "materia_prima": 0.90, "envase_etiqueta": 1.00, "mano_obra": 0.80, "cif": 0.35 },
+  "gel-neutro":           { "materia_prima": 0.55, "envase_etiqueta": 0.70, "mano_obra": 0.50, "cif": 0.25 }
+}

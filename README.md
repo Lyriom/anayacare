@@ -10,7 +10,9 @@ Sitio estático de **Anaya Co.** — *Equilibrio · Ritual · Bienestar* —, co
 - **Kits con ahorro** (Mirada & Rostro, Cabello Botánico, Jabones Artesanales).
 - **Catálogo bajo pedido** con precio de los demás productos artesanales.
 - **Pedido por WhatsApp**: se agregan productos, se ajustan cantidades y se envía la lista con el total a **+593 93 992 9104**. Sin JavaScript, cada producto tiene su enlace directo a WhatsApp.
-- **Cómo comprar**, **misión, visión y valores**, **preguntas frecuentes** y **contacto**.
+- **Misión, visión y objetivo** al inicio de la página, justo después de la portada.
+- **Cómo comprar**, **nosotros y valores**, **preguntas frecuentes** y **contacto**.
+- **Costos de producción por unidad** (sección temporal al final): materia prima, envase y etiqueta, mano de obra, costos indirectos, costo unitario, utilidad y margen.
 - **Política de privacidad** conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (`privacidad.html`).
 
 ## Cambiar precios o textos
@@ -18,6 +20,8 @@ Sitio estático de **Anaya Co.** — *Equilibrio · Ritual · Bienestar* —, co
 1. Edita los precios en `datos/precios.json` (en dólares, con punto decimal: `12.90`).
 2. Desde la raíz del repositorio ejecuta `python3 tools/generar.py`.
 3. Haz `git commit` y `git push`.
+
+Los costos de producción están en `datos/costos.json` (mismos nombres que en `precios.json`); el costo unitario, la utilidad y el margen se calculan solos. Para **quitar la sección de costos**, cambia `MOSTRAR_COSTOS = True` a `False` en `tools/generar.py` y vuelve a ejecutar el script.
 
 El script regenera `index.html` y `privacidad.html`: precios visibles, botones de pedido, mensajes de WhatsApp, kits con su ahorro y datos para buscadores. Los textos de productos y kits están en `tools/generar.py`; la política de privacidad, en `tools/privacidad-articulo.html`.
 
@@ -27,6 +31,7 @@ El script regenera `index.html` y `privacidad.html`: precios visibles, botones d
 index.html          Página principal (generada)
 privacidad.html     Política de privacidad (generada)
 datos/precios.json  Precios en USD
+datos/costos.json   Costos de producción por unidad (sección temporal)
 tools/generar.py    Genera las dos páginas
 css/styles.css      Estilos (paleta marfil y dorado del logo)
 js/main.js          Navegación adaptable, pedido por WhatsApp, polyfills condicionales

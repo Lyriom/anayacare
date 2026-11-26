@@ -6,6 +6,9 @@ Uso (desde la raíz del repositorio):
 Para cambiar precios edita datos/precios.json y vuelve a ejecutar el script.
 Los textos de productos están en las listas PRODUCTS y CATALOG de este archivo;
 el texto de la política de privacidad está en tools/privacidad-articulo.html.
+
+Los costos de producción están en datos/costos.json. La sección es temporal:
+para quitarla de la página pon MOSTRAR_COSTOS = False y vuelve a ejecutar el script.
 """
 import json
 import sys
@@ -19,6 +22,8 @@ sys.path.insert(0, str(TOOLS))
 from iconos import ICON  # noqa: E402
 
 PRICES = json.loads((REPO / "datos" / "precios.json").read_text(encoding="utf-8"))
+COSTS = json.loads((REPO / "datos" / "costos.json").read_text(encoding="utf-8"))
+MOSTRAR_COSTOS = True  # sección temporal de costos de producción al final de la página
 PRIVACY_ARTICLE = (TOOLS / "privacidad-articulo.html").read_text(encoding="utf-8")
 
 WA_NUMBER = "593939929104"
@@ -358,7 +363,7 @@ def footer(current_privacy=False):
         <h2 id="footer-nav-title">Explora</h2>
         <ul>
           <li><a href="{pre}#productos">Productos y precios</a></li>
-          <li><a href="{pre}#nosotros">Misión y visión</a></li>
+          <li><a href="{pre}#esencia">Misión, visión y objetivo</a></li>
           <li><a href="{pre}#preguntas">Preguntas frecuentes</a></li>
         </ul>
       </nav>
@@ -401,7 +406,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/styles.css?v=3">
   <script>document.documentElement.classList.add('has-js')</script>{og}"""
 
 
@@ -428,6 +433,104 @@ json_ld = json.dumps({
 }, ensure_ascii=False, indent=2)
 json_ld = json_ld.replace(f"{SITE}favicon-512.png", f"{SITE}img/marca/logo-completo.png")
 
+ESSENCE = [
+    ("leaf", "Misión",
+     "Elaborar cosméticos artesanales de origen botánico, con ingredientes naturales y procesos cuidadosos, que conviertan el autocuidado diario en un ritual de bienestar, con productos honestos, seguros y accesibles, y una atención cercana y personalizada."),
+    ("eye", "Visión",
+     "Ser una marca ecuatoriana referente en cosmética natural artesanal, reconocida por la calidad de sus fórmulas, la transparencia de sus ingredientes y la confianza de una comunidad que elige cuidarse de forma consciente."),
+    ("target", "Objetivo",
+     f"Elaborar y comercializar cosméticos botánicos artesanales de calidad, con ingredientes naturales, etiquetado transparente y precios accesibles, para consolidar a {BRAND} como una marca ecuatoriana de confianza en el cuidado natural de la piel, el cabello y el bienestar."),
+]
+
+
+def essence_card(icon, title, text):
+    return f"""
+          <article class="essence-card reveal">
+            {ICON[icon]}
+            <h3>{escape(title)}</h3>
+            <p>{escape(text)}</p>
+          </article>"""
+
+
+# ---------- Costos de producción (sección temporal) ----------
+COST_FIELDS = [
+    ("materia_prima", "Materia prima"),
+    ("envase_etiqueta", "Envase y etiqueta"),
+    ("mano_obra", "Mano de obra"),
+    ("cif", "Costos indirectos"),
+]
+
+
+def cents(v):
+    return round(v * 100)
+
+
+def percent(v):
+    return f"{v:.1f}".replace(".", ",") + " %"
+
+
+def cost_rows():
+    """Calcula costo unitario, utilidad y margen de cada producto (en centavos, para que todo cuadre)."""
+    ids = [p["id"] for p in PRODUCTS] + [c[0] for c in CATALOG]
+    missing = [i for i in ids if i not in COSTS]
+    extra = [k for k in COSTS if k not in ids]
+    if missing or extra:
+        raise SystemExit(f"datos/costos.json no coincide con los productos. Faltan: {missing}. Sobran: {extra}.")
+    rows = []
+    for pid in ids:
+        entry = COSTS[pid]
+        absent = [k for k, _ in COST_FIELDS if k not in entry]
+        if absent:
+            raise SystemExit(f"datos/costos.json: a «{pid}» le faltan {absent}.")
+        parts = [cents(entry[k]) for k, _ in COST_FIELDS]
+        total, price = sum(parts), cents(PRICES[pid])
+        if total >= price:
+            raise SystemExit(f"datos/costos.json: el costo de «{pid}» ({money(total / 100)}) no es menor que su precio ({money(price / 100)}).")
+        rows.append((item_name(pid), parts, total, price, price - total, (price - total) / price * 100))
+    return rows
+
+
+def cost_section():
+    labels = [label for _, label in COST_FIELDS] + ["Costo unitario", "Precio de venta", "Utilidad", "Margen sobre el precio"]
+    head_cells = "".join(f'<th scope="col">{escape(l)}</th>' for l in ["Producto", *labels])
+    body = []
+    for name, parts, total, price, profit, margin in cost_rows():
+        values = [money(c / 100) for c in parts] + [money(total / 100), money(price / 100), money(profit / 100), percent(margin)]
+        classes = [""] * len(parts) + [' class="is-total"', "", ' class="is-profit"', ' class="is-margin"']
+        cells = "".join(f'<td{c} data-label="{escape(l)}">{v}</td>' for l, v, c in zip(labels, values, classes))
+        body.append(f'\n              <tr><th scope="row">{escape(name)}</th>{cells}</tr>')
+    return f"""
+
+    <section class="section" id="costos" aria-labelledby="costos-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Costos de producción</p>
+          <h2 id="costos-title">¿Cuánto cuesta elaborar cada producto?</h2>
+          <p>Costo estimado de producción por unidad de cada producto, comparado con su precio de venta.</p>
+        </div>
+        <div class="table-wrap" tabindex="0" role="region" aria-labelledby="costos-caption">
+          <table class="cost-table">
+            <caption id="costos-caption">Costos de producción por unidad, en dólares (USD)</caption>
+            <thead>
+              <tr>{head_cells}</tr>
+            </thead>
+            <tbody>{"".join(body)}
+            </tbody>
+          </table>
+        </div>
+        <dl class="cost-notes">
+          <div><dt>Materia prima</dt><dd>Ingredientes de cada fórmula: aceites, extractos, activos y conservantes.</dd></div>
+          <div><dt>Envase y etiqueta</dt><dd>Frasco, gotero o tapa, etiqueta impresa y empaque.</dd></div>
+          <div><dt>Mano de obra</dt><dd>Tiempo de elaboración, envasado y etiquetado de cada unidad.</dd></div>
+          <div><dt>Costos indirectos de fabricación</dt><dd>Energía, agua, gas, limpieza y desinfección, utensilios y desgaste de equipos.</dd></div>
+          <div><dt>Costo unitario</dt><dd>Materia prima + envase y etiqueta + mano de obra + costos indirectos.</dd></div>
+          <div><dt>Utilidad y margen</dt><dd>Utilidad = precio de venta − costo unitario. Margen = utilidad ÷ precio de venta.</dd></div>
+        </dl>
+        <p class="price-note">Valores estimados de referencia. No incluyen envío, impuestos ni gastos de venta.</p>
+      </div>
+    </section>"""
+
+
 STEPS = [
     ("Elige tus productos", "Revisa fotos, ingredientes y precios. Pulsa «Agregar al pedido» en los que quieras."),
     ("Envía tu pedido por WhatsApp", "Con un toque se abre el chat con la lista y el total. Solo tienes que enviarlo."),
@@ -440,7 +543,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
   <script type="application/ld+json">
 {json_ld}
   </script>
-  <script src="js/main.js?v=2" type="module"></script>
+  <script src="js/main.js?v=3" type="module"></script>
 </head>
 <body>
 {header()}
@@ -472,6 +575,18 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
         <li>{ICON["label"]}<span>Ingredientes y fechas en cada etiqueta</span></li>
         <li>{ICON["chat"]}<span>Pedido y asesoría por WhatsApp</span></li>
       </ul>
+    </section>
+
+    <section class="section section-alt" id="esencia" aria-labelledby="esencia-title">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Nuestra esencia</p>
+          <h2 id="esencia-title">Misión, visión y objetivo</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="essence-grid">{"".join(essence_card(*e) for e in ESSENCE)}
+        </div>
+      </div>
     </section>
 
     <section class="section" id="productos" aria-labelledby="productos-title">
@@ -517,36 +632,24 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
     </section>
 
     <section class="section section-alt" id="nosotros" aria-labelledby="nosotros-title">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Nosotros</p>
-          <h2 id="nosotros-title">Equilibrio, ritual y bienestar</h2>
-          <p>{BRAND} nace del gusto por la química cosmética y las plantas. Formulamos, envasamos y etiquetamos cada producto de forma artesanal, cuidando la calidad de los ingredientes y la información que llevas a casa.</p>
-        </div>
-        <div class="about-layout">
-          <figure class="brand-card reveal">
-            {logo_img("logo-completo", f"Logotipo de {BRAND}: figura dorada con brazos abiertos dentro de un círculo y el lema Equilibrio, ritual, bienestar", 900, 864, loading="lazy")}
-            <figcaption>El cuidado diario como un ritual: un momento de equilibrio para ti.</figcaption>
-          </figure>
-          <div class="about-grid">
-            <article class="about-card reveal">
-              <p class="eyebrow">Misión</p>
-              <h3>Lo que hacemos cada día</h3>
-              <p>Elaborar cosméticos artesanales de origen botánico, con ingredientes naturales y procesos cuidadosos, que conviertan el autocuidado diario en un ritual de bienestar, con productos honestos, seguros y accesibles, y una atención cercana y personalizada.</p>
-            </article>
-            <article class="about-card reveal">
-              <p class="eyebrow">Visión</p>
-              <h3>Hacia dónde vamos</h3>
-              <p>Ser una marca ecuatoriana referente en cosmética natural artesanal, reconocida por la calidad de sus fórmulas, la transparencia de sus ingredientes y la confianza de una comunidad que elige cuidarse de forma consciente.</p>
-            </article>
+      <div class="wrap about-layout">
+        <figure class="brand-card reveal">
+          {logo_img("logo-completo", f"Logotipo de {BRAND}: figura dorada con brazos abiertos dentro de un círculo y el lema Equilibrio, ritual, bienestar", 900, 864, loading="lazy")}
+          <figcaption>El cuidado diario como un ritual: un momento de equilibrio para ti.</figcaption>
+        </figure>
+        <div class="about-text">
+          <div class="section-head reveal">
+            <p class="eyebrow">Nosotros</p>
+            <h2 id="nosotros-title">Equilibrio, ritual y bienestar</h2>
+            <p>{BRAND} nace del gusto por la química cosmética y las plantas. Formulamos, envasamos y etiquetamos cada producto de forma artesanal, cuidando la calidad de los ingredientes y la información que llevas a casa.</p>
           </div>
+          <ul class="values">
+            <li class="reveal"><h3>Naturalidad</h3><p>Priorizamos aceites vegetales, extractos y activos de origen natural.</p></li>
+            <li class="reveal"><h3>Transparencia</h3><p>Declaramos ingredientes, fechas y modo de uso en cada etiqueta.</p></li>
+            <li class="reveal"><h3>Calidad artesanal</h3><p>Lotes pequeños, elaborados y envasados a mano con higiene y precisión.</p></li>
+            <li class="reveal"><h3>Cercanía</h3><p>Te asesoramos de forma personal para que elijas lo que tu piel y tu cabello necesitan.</p></li>
+          </ul>
         </div>
-        <ul class="values">
-          <li class="reveal"><h3>Naturalidad</h3><p>Priorizamos aceites vegetales, extractos y activos de origen natural.</p></li>
-          <li class="reveal"><h3>Transparencia</h3><p>Declaramos ingredientes, fechas y modo de uso en cada etiqueta.</p></li>
-          <li class="reveal"><h3>Calidad artesanal</h3><p>Lotes pequeños, elaborados y envasados a mano con higiene y precisión.</p></li>
-          <li class="reveal"><h3>Cercanía</h3><p>Te asesoramos de forma personal para que elijas lo que tu piel y tu cabello necesitan.</p></li>
-        </ul>
       </div>
     </section>
 
@@ -579,7 +682,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           </div>
         </div>
       </div>
-    </section>
+    </section>{cost_section() if MOSTRAR_COSTOS else ""}
   </main>
 {footer()}
 
@@ -621,7 +724,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
 privacy = head(f"Política de privacidad · {BRAND}",
                f"Política de privacidad y protección de datos personales de {BRAND}, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.",
                f"{SITE}privacidad.html", og_image=False) + f"""
-  <script src="js/main.js?v=2" type="module"></script>
+  <script src="js/main.js?v=3" type="module"></script>
 </head>
 <body>
 {header(current_privacy=True)}
