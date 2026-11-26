@@ -337,7 +337,7 @@ def header(current_privacy=False):
         <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">{ICON["menu"]}<span>Menú</span></button>
         <ul id="site-menu" class="site-menu" popover="auto">
           <li><a href="{pre}#productos">Productos</a></li>
-          <li><a href="{pre}#catalogo">Catálogo</a></li>
+          <li><a href="catalogo/">Catálogo</a></li>
           <li><a href="{pre}#nosotros">Nosotros</a></li>
           <li><a href="{pre}#preguntas">Preguntas</a></li>
           <li><a href="{pre}#contacto">Contacto</a></li>
@@ -363,6 +363,7 @@ def footer(current_privacy=False):
         <h2 id="footer-nav-title">Explora</h2>
         <ul>
           <li><a href="{pre}#productos">Productos y precios</a></li>
+          <li><a href="catalogo/">Catálogo completo</a></li>
           <li><a href="{pre}#esencia">Misión, visión y objetivo</a></li>
           <li><a href="{pre}#preguntas">Preguntas frecuentes</a></li>
         </ul>
@@ -406,7 +407,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=3">
+  <link rel="stylesheet" href="css/styles.css?v=4">
   <script>document.documentElement.classList.add('has-js')</script>{og}"""
 
 
@@ -543,7 +544,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
   <script type="application/ld+json">
 {json_ld}
   </script>
-  <script src="js/main.js?v=3" type="module"></script>
+  <script src="js/main.js?v=4" type="module"></script>
 </head>
 <body>
 {header()}
@@ -614,6 +615,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           <p class="eyebrow">Bajo pedido</p>
           <h2 id="catalogo-title">También elaboramos</h2>
           <p>Jabones artesanales, cuidado facial, labial y bienestar. Los preparamos en lotes pequeños: agrégalos a tu pedido y te confirmamos el tiempo de preparación.</p>
+          <a class="btn btn-primary section-cta" href="catalogo/">Ver el catálogo completo</a>
         </div>
         <ul class="catalog-grid">{"".join(catalog_card(*c) for c in CATALOG)}
         </ul>
@@ -724,7 +726,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
 privacy = head(f"Política de privacidad · {BRAND}",
                f"Política de privacidad y protección de datos personales de {BRAND}, conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.",
                f"{SITE}privacidad.html", og_image=False) + f"""
-  <script src="js/main.js?v=3" type="module"></script>
+  <script src="js/main.js?v=4" type="module"></script>
 </head>
 <body>
 {header(current_privacy=True)}
@@ -738,6 +740,39 @@ privacy = head(f"Política de privacidad · {BRAND}",
 </body>
 </html>
 """
+
+# ---------- Datos para la página de catálogo en Vue (catalogo/) ----------
+# Grupos del filtro: une categorías con un solo producto para que el filtro sea corto.
+GROUPS = {"Mirada": "Rostro y mirada", "Rostro": "Rostro y mirada", "Cabello": "Cabello y barba",
+          "Cabello y barba": "Cabello y barba", "Jabones": "Jabones", "Labios": "Labios", "Bienestar": "Bienestar"}
+# Fotos de los productos bajo pedido: id -> [(slug, alt, etiqueta)]. Las imágenes van en
+# img/productos/<slug>-{480,800,1200}.{avif,webp,jpg}, igual que las de los destacados.
+CATALOG_PHOTOS = {}
+
+
+def photo_json(photos):
+    return [{"slug": s, "alt": alt, "etiqueta": label} for s, alt, label in photos]
+
+
+catalog_json = {
+    "marca": BRAND,
+    "whatsapp": WA_NUMBER,
+    "grupos": list(dict.fromkeys(GROUPS.values())),
+    "productos": [{
+        "id": p["id"], "nombre": p["name"], "categoria": p["category"], "grupo": GROUPS[p["category"]],
+        "destacado": True, "lema": p["tagline"], "descripcion": p["summary"],
+        "ingredientes": p["ingredients_text"], "inci": p["inci"], "uso": p["usage"], "precauciones": p["cautions"],
+        "precio": PRICES[p["id"]], "fotos": photo_json(p["photos"]),
+    } for p in PRODUCTS] + [{
+        "id": pid, "nombre": name, "categoria": cat, "grupo": GROUPS[cat],
+        "destacado": False, "lema": None, "descripcion": None,
+        "ingredientes": ingredients, "inci": None, "uso": None, "precauciones": None,
+        "precio": PRICES[pid], "fotos": photo_json(CATALOG_PHOTOS.get(pid, [])),
+    } for pid, cat, name, ingredients in CATALOG],
+    # Los kits no se muestran en el catálogo, pero así el pedido compartido conoce su nombre y precio.
+    "kits": [{"id": kid, "nombre": name, "precio": PRICES[kid]} for kid, name, *_ in KITS],
+}
+(REPO / "datos" / "catalogo.json").write_text(json.dumps(catalog_json, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 (REPO / "index.html").write_text(index, encoding="utf-8")
 (REPO / "privacidad.html").write_text(privacy, encoding="utf-8")

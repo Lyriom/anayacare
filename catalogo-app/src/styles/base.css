@@ -1,0 +1,146 @@
+/* Anaya Co. · Catálogo — tokens de diseño y estilos base.
+   Mismos colores y fuentes que el sitio principal (css/styles.css). Los estilos de cada
+   componente viven en su propio archivo .vue (<style scoped>). */
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../../../fonts/cormorant-garamond-latin-wght-normal.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("../../../fonts/cormorant-garamond-latin-wght-italic.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Jost";
+  src: url("../../../fonts/jost-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  --ivory: #faf8f3;
+  --paper: #f3eee5;
+  --sand: #ece3d6;
+  --line: #e4d8c5;
+  --white: #fffdf9;
+  --ink: #2b2420;
+  --ink-soft: #5c514a;
+  --gold: #b88d3b;        /* decorativo */
+  --gold-text: #8a6420;   /* texto dorado accesible */
+  --gold-light: #d9b46a;  /* dorado sobre fondo oscuro */
+  --rose-ink: #8e4b58;
+  --sage-ink: #4b5943;
+  --wa: #0e7a3f;
+  --wa-hover: #0a6232;
+
+  --font-display: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: "Jost", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-s: 0.625rem;
+  --radius-m: 1rem;
+  --radius-l: 1.75rem;
+  --gutter: clamp(1rem, 0.6rem + 2vw, 2.5rem);
+  --content: 76rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+img, picture, svg { display: block; max-inline-size: 100%; }
+img { block-size: auto; }
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+
+:where(a, button, input, [tabindex="0"]):focus-visible {
+  outline: 2px solid var(--gold-text);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  inline-size: 1px; block-size: 1px;
+  overflow: hidden; clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.wrap {
+  inline-size: min(100% - 2 * var(--gutter), var(--content));
+  margin-inline: auto;
+}
+
+/* Diálogos modales (ficha de producto y pedido).
+   Va fuera de los estilos con scope: @starting-style y ::backdrop deben quedar globales. */
+dialog.sheet {
+  inline-size: min(100% - 2rem, 62rem);
+  max-inline-size: none;
+  max-block-size: min(100dvh - 2rem, 56rem);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-l);
+  background: var(--ivory);
+  color: var(--ink);
+  box-shadow: 0 30px 80px -20px rgb(43 36 32 / 0.45);
+  overflow: auto;
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+dialog.sheet.narrow { inline-size: min(100% - 2rem, 34rem); }
+dialog.sheet:modal { overscroll-behavior: contain; }
+dialog.sheet[open] {
+  opacity: 1;
+  @starting-style { opacity: 0; }
+}
+dialog.sheet::backdrop {
+  background-color: rgb(43 36 32 / 0.55);
+  backdrop-filter: blur(3px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+  transition-property: background-color, display, overlay;
+  transition-duration: 0.3s;
+  transition-behavior: allow-discrete;
+}
+dialog.sheet[open]::backdrop {
+  @starting-style { background-color: rgb(43 36 32 / 0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  dialog.sheet { transform: translateY(1.5rem) scale(0.98); }
+  dialog.sheet[open] {
+    transform: none;
+    @starting-style { transform: translateY(1.5rem) scale(0.98); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog.sheet, dialog.sheet::backdrop { transition-duration: 0.1s; }
+}

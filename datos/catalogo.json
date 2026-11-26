@@ -1,0 +1,392 @@
+{
+  "marca": "Anaya Co.",
+  "whatsapp": "593939929104",
+  "grupos": [
+    "Rostro y mirada",
+    "Cabello y barba",
+    "Jabones",
+    "Labios",
+    "Bienestar"
+  ],
+  "productos": [
+    {
+      "id": "pestanas",
+      "nombre": "Tratamiento Crecimiento de Pestañas",
+      "categoria": "Mirada",
+      "grupo": "Rostro y mirada",
+      "destacado": true,
+      "lema": "Realza tu mirada",
+      "descripcion": "Mezcla de aceites vegetales con vitamina E para nutrir y acondicionar tus pestañas desde la raíz.",
+      "ingredientes": "Aceite de ricino, aceite de almendras y vitamina E.",
+      "inci": null,
+      "uso": [
+        "Aplicar una pequeña cantidad en la raíz de las pestañas con el aplicador, preferiblemente en la noche."
+      ],
+      "precauciones": [
+        "Uso externo únicamente.",
+        "Evitar el contacto con los ojos.",
+        "Suspender su uso en caso de irritación o reacción adversa.",
+        "Mantener fuera del alcance de los niños."
+      ],
+      "precio": 12.9,
+      "fotos": [
+        {
+          "slug": "pestanas-frente",
+          "alt": "Frasco gotero ámbar del Tratamiento Crecimiento de Pestañas, etiqueta frontal rosa con ilustración de ojo",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "pestanas-reverso",
+          "alt": "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones",
+          "etiqueta": "Reverso"
+        }
+      ]
+    },
+    {
+      "id": "serum",
+      "nombre": "Sérum de Ácido Hialurónico",
+      "categoria": "Rostro",
+      "grupo": "Rostro y mirada",
+      "destacado": true,
+      "lema": "Hidratación · Firmeza · Juventud",
+      "descripcion": "Sérum ligero con ácido hialurónico, glicerina y vitamina E para el cuidado diario del rostro y el cuello.",
+      "ingredientes": "Glicerina, propilenglicol, vitamina E y ácido hialurónico.",
+      "inci": null,
+      "uso": [
+        "Aplicar unas gotas sobre la piel limpia y seca, en rostro y cuello, realizando un suave masaje hasta su completa absorción."
+      ],
+      "precauciones": [
+        "Uso externo únicamente.",
+        "Evitar el contacto con los ojos.",
+        "Suspender su uso en caso de irritación o reacción adversa.",
+        "Mantener fuera del alcance de los niños.",
+        "Conservar en un lugar fresco y seco, protegido de la luz."
+      ],
+      "precio": 19.9,
+      "fotos": [
+        {
+          "slug": "serum-hialuronico-frente",
+          "alt": "Frasco gotero de vidrio transparente del Sérum de Ácido Hialurónico con tapa dorada",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "serum-hialuronico-reverso",
+          "alt": "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento",
+          "etiqueta": "Reverso"
+        }
+      ]
+    },
+    {
+      "id": "protector",
+      "nombre": "Protector Térmico Capilar",
+      "categoria": "Cabello",
+      "grupo": "Cabello y barba",
+      "destacado": true,
+      "lema": "Ricino, aguacate, jojoba y argán",
+      "descripcion": "Mezcla de aceites vegetales con extracto de romero para aplicar de medios a puntas antes de usar herramientas de calor.",
+      "ingredientes": "Aceites de ricino, aguacate, jojoba y argán, extracto de romero y vitamina E.",
+      "inci": "Ricinus Communis (Castor) Seed Oil, Persea Gratissima (Avocado) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Argania Spinosa Kernel Oil, Rosmarinus Officinalis Leaf Extract, Tocopheryl Acetate.",
+      "uso": [
+        "Utilizar sobre cabello húmedo.",
+        "Aplicar unas gotas en la palma de la mano.",
+        "Distribuir uniformemente de medios a puntas.",
+        "Usar antes de herramientas de calor.",
+        "Peinar como de costumbre."
+      ],
+      "precauciones": [
+        "Uso externo solamente.",
+        "Evitar contacto con los ojos.",
+        "No ingerir.",
+        "Mantener fuera del alcance de los niños.",
+        "Suspender su uso si presenta irritación.",
+        "Conservar en lugar fresco."
+      ],
+      "precio": 11.9,
+      "fotos": [
+        {
+          "slug": "protector-termico-frente",
+          "alt": "Frasco gotero ámbar del Protector Térmico Capilar con etiqueta botánica de romero y aguacate",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "protector-termico-uso",
+          "alt": "Lateral de la etiqueta del protector térmico con el modo de uso",
+          "etiqueta": "Modo de uso"
+        },
+        {
+          "slug": "protector-termico-precauciones",
+          "alt": "Lateral de la etiqueta del protector térmico con las precauciones",
+          "etiqueta": "Precauciones"
+        }
+      ]
+    },
+    {
+      "id": "capilar-barba",
+      "nombre": "Tratamiento Capilar & Barba",
+      "categoria": "Cabello y barba",
+      "grupo": "Cabello y barba",
+      "destacado": true,
+      "lema": "Botanical Care · aceites esenciales naturales",
+      "descripcion": "Aceites de almendras dulces y ricino con aceites esenciales de bergamota y romero, pensado para el cuidado del cabello y la barba.",
+      "ingredientes": "Aceite de almendras dulces, aceite de ricino, aceite esencial de bergamota, aceite esencial de romero y vitamina E (tocopherol).",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 12.9,
+      "fotos": [
+        {
+          "slug": "capilar-barba-frente",
+          "alt": "Frasco gotero ámbar del Tratamiento Capilar & Barba con etiqueta gris oscuro Botanical Care",
+          "etiqueta": "Frente"
+        },
+        {
+          "slug": "capilar-barba-reverso",
+          "alt": "Reverso de la etiqueta del tratamiento capilar y barba con ingredientes INCI, elaboración, expiración y lote",
+          "etiqueta": "Reverso"
+        }
+      ]
+    },
+    {
+      "id": "tonico-descongestivo",
+      "nombre": "Tónico descongestivo",
+      "categoria": "Rostro",
+      "grupo": "Rostro y mirada",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Manzanilla, caléndula y vitamina E.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 9.9,
+      "fotos": []
+    },
+    {
+      "id": "espuma-facial",
+      "nombre": "Espuma facial limpiadora",
+      "categoria": "Rostro",
+      "grupo": "Rostro y mirada",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Agua de hamamelis, aloe vera, glicerina vegetal y betaína de coco.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 12.9,
+      "fotos": []
+    },
+    {
+      "id": "agua-micelar",
+      "nombre": "Agua micelar",
+      "categoria": "Rostro",
+      "grupo": "Rostro y mirada",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Leche virginal, betaína de coco y vitamina E.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 7.9,
+      "fotos": []
+    },
+    {
+      "id": "contorno-ojos",
+      "nombre": "Contorno de ojos",
+      "categoria": "Rostro",
+      "grupo": "Rostro y mirada",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Extracto de pepino, ácido hialurónico y vitamina E.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 18.9,
+      "fotos": []
+    },
+    {
+      "id": "exfoliante-arroz",
+      "nombre": "Exfoliante de arroz",
+      "categoria": "Rostro",
+      "grupo": "Rostro y mirada",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Harina de arroz, avena, caolín y óxido de zinc.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 9.9,
+      "fotos": []
+    },
+    {
+      "id": "tonico-capilar",
+      "nombre": "Tónico capilar",
+      "categoria": "Cabello",
+      "grupo": "Cabello y barba",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Romero, ortiga y vitamina E.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 10.9,
+      "fotos": []
+    },
+    {
+      "id": "shampoo",
+      "nombre": "Shampoo líquido de cebolla",
+      "categoria": "Cabello",
+      "grupo": "Cabello y barba",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Extracto de cebolla y vitamina E.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 8.9,
+      "fotos": []
+    },
+    {
+      "id": "jabon-arroz",
+      "nombre": "Jabón aclarante de arroz",
+      "categoria": "Jabones",
+      "grupo": "Jabones",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Harina de arroz, manteca de karité y aceite de almendras.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 4.9,
+      "fotos": []
+    },
+    {
+      "id": "jabon-carbon",
+      "nombre": "Jabón de carbón activado",
+      "categoria": "Jabones",
+      "grupo": "Jabones",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Carbón activado, aceite de jojoba y árbol de té.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 5.5,
+      "fotos": []
+    },
+    {
+      "id": "jabon-avena",
+      "nombre": "Jabón de avena",
+      "categoria": "Jabones",
+      "grupo": "Jabones",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Avena, manteca de karité, aceite de coco y vainilla.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 5.9,
+      "fotos": []
+    },
+    {
+      "id": "jabon-cafe",
+      "nombre": "Jabón exfoliante de café",
+      "categoria": "Jabones",
+      "grupo": "Jabones",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Café, manteca de karité y aceite de coco.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 5.5,
+      "fotos": []
+    },
+    {
+      "id": "balsamo-labial",
+      "nombre": "Bálsamo labial de cera de abejas",
+      "categoria": "Labios",
+      "grupo": "Labios",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Cera de abejas, aceite de almendras y vitamina E.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 5.5,
+      "fotos": []
+    },
+    {
+      "id": "vela-masaje",
+      "nombre": "Vela de masaje",
+      "categoria": "Bienestar",
+      "grupo": "Bienestar",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Cera de soja, manteca de karité, aceite de almendras y lavanda.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 13.9,
+      "fotos": []
+    },
+    {
+      "id": "refresh",
+      "nombre": "Refresh roll-on",
+      "categoria": "Bienestar",
+      "grupo": "Bienestar",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Aceite de almendras y aceite esencial de menta.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 8.9,
+      "fotos": []
+    },
+    {
+      "id": "gel-neutro",
+      "nombre": "Gel neutro",
+      "categoria": "Bienestar",
+      "grupo": "Bienestar",
+      "destacado": false,
+      "lema": null,
+      "descripcion": null,
+      "ingredientes": "Gel de textura ligera, sin fragancia.",
+      "inci": null,
+      "uso": null,
+      "precauciones": null,
+      "precio": 4.9,
+      "fotos": []
+    }
+  ],
+  "kits": [
+    {
+      "id": "kit-mirada",
+      "nombre": "Kit Mirada & Rostro",
+      "precio": 29.5
+    },
+    {
+      "id": "kit-cabello",
+      "nombre": "Kit Cabello Botánico",
+      "precio": 28.5
+    },
+    {
+      "id": "kit-jabones",
+      "nombre": "Kit Jabones Artesanales",
+      "precio": 19.5
+    }
+  ]
+}
