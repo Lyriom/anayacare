@@ -99,25 +99,40 @@ c.setFont('AnayaSans',8);c.setFillColor(MUTED)
 c.drawString(32,y-20,'Valores estimados. No incluyen envío, impuestos ni gastos de venta. Margen = utilidad ÷ precio de venta.')
 c.showPage();c.setPageSize(A4)
 
-# 19 productos, cuatro por página.
+# Una ficha por producto, con las vistas disponibles y las indicaciones verificables.
 w,h=A4
-for offset in range(0,len(data['productos']),4):
-    page=3+offset//4;background(w,h,page)
-    c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(36,h-45,'CATÁLOGO  ·  PRODUCTOS')
-    c.setFillColor(INK);c.setFont('AnayaSerif',20);c.drawString(36,h-72,'Nuestros productos')
-    gap=16; left=36; cardw=(w-72-gap)/2; cardh=325
-    for i,p in enumerate(data['productos'][offset:offset+4]):
-        col=i%2;row=i//2;x=left+col*(cardw+gap);top=h-92-row*(cardh+14); y=top-cardh
-        c.setFillColor(colors.white);c.setStrokeColor(LINE);c.roundRect(x,y,cardw,cardh,9,fill=1,stroke=1)
-        c.setFillColor(SAND);c.roundRect(x+9,top-161,cardw-18,150,5,fill=1,stroke=0)
-        if p['fotos']:
-            photo(ROOT/'img/productos'/f"{p['fotos'][0]['slug']}-800.jpg",x+9,top-161,cardw-18,150)
-        if p['id'] in ('shampoo','jabon-cafe'):
-            c.setFont('AnayaSans',7);c.setFillColor(MUTED);c.drawRightString(x+cardw-15,top-154,'Imagen referencial')
-        c.setFillColor(GOLD);c.setFont('AnayaSansBold',8);c.drawString(x+14,top-179,p['categoria'].upper())
-        used=paragraph(p['nombre'],x+14,top-187,cardw-28,13,16,'AnayaSerif')
-        paragraph(p['ingredientes'],x+14,top-195-used,cardw-28,9,12,color=MUTED)
-        c.setFillColor(INK);c.setFont('AnayaSerif',16);c.drawString(x+14,y+17,money(p['precio']))
+for index,p in enumerate(data['productos']):
+    background(w,h,index+3)
+    c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(36,h-43,p['categoria'].upper())
+    title_height=paragraph(p['nombre'],36,h-54,w-72,21,25,'AnayaSerif')
+    c.setFillColor(INK);c.setFont('AnayaSerif',15);c.drawRightString(w-36,h-45,money(p['precio']))
+    photos=p['fotos']
+    count=min(len(photos),3)
+    gap=10; x0=36; image_top=h-108; image_h=195
+    image_w=(w-72-gap*(count-1))/count
+    for i,f in enumerate(photos[:3]):
+        x=x0+i*(image_w+gap)
+        c.setFillColor(SAND);c.roundRect(x,image_top-image_h,image_w,image_h,5,fill=1,stroke=0)
+        photo(ROOT/'img/productos'/f"{f['slug']}-800.jpg",x,image_top-image_h,image_w,image_h)
+        c.setFillColor(MUTED);c.setFont('AnayaSans',8);c.drawString(x+3,image_top-image_h-13,f['etiqueta'])
+    top=image_top-image_h-40
+    def section(title, lines):
+        global top
+        c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(36,top,title.upper())
+        top-=9
+        for line in lines:
+            used=paragraph(line,36,top,w-72,9.5,13,color=MUTED)
+            top-=used+5
+        top-=12
+    section('Ingredientes', [p['ingredientes']])
+    if p.get('uso'): section('Modo de uso',p['uso'])
+    if p.get('precauciones'): section('Precauciones',p['precauciones'])
+    if not p.get('uso') or not p.get('precauciones'):
+        section('Información por confirmar',['Las indicaciones que faltan no se distinguen o no figuran en las fotografías disponibles. Consulta la etiqueta o contacta a Anaya Co.'])
+    if len(photos)==1:
+        section('Fotografías',['No se dispone de una imagen posterior para este producto.'])
+    if top < 40:
+        raise ValueError(f"La ficha de {p['nombre']} no cabe en una página: {top}")
     c.showPage()
 c.save()
 print('PDF creado:', OUT)

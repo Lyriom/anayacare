@@ -23,6 +23,7 @@ from iconos import ICON  # noqa: E402
 
 PRICES = json.loads((REPO / "datos" / "precios.json").read_text(encoding="utf-8"))
 COSTS = json.loads((REPO / "datos" / "costos.json").read_text(encoding="utf-8"))
+SPECS = json.loads((REPO / "datos" / "especificaciones.json").read_text(encoding="utf-8"))
 MOSTRAR_COSTOS = True  # sección temporal de costos de producción al final de la página
 PRIVACY_ARTICLE = (TOOLS / "privacidad-articulo.html").read_text(encoding="utf-8")
 
@@ -159,7 +160,7 @@ CATALOG_PHOTOS = {
     'jabon-avena': [("jabon-avena-frente-ia", "Jabón de avena: fotografía del producto", "Frente"), ("jabon-avena-reverso", "Jabón de avena: etiqueta posterior", "Reverso")],
     'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente")],
     'balsamo-labial': [("balsamo-labial-frente-ia", "Bálsamo labial de cera de abejas: fotografía del producto", "Frente"), ("balsamo-labial-reverso", "Bálsamo labial de cera de abejas: etiqueta posterior", "Reverso")],
-    'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Frente")],
+    'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Vista de producto"), ("refresh-frente", "Etiqueta con indicaciones del Refresh roll-on", "Etiqueta posterior")],
 }
 
 KITS = [
@@ -293,14 +294,14 @@ def product_dialog(p):
 def catalog_card(pid, cat, name, ingredients):
     price = PRICES[pid]
     photos = CATALOG_PHOTOS.get(pid, [])
-    media = (f'<a class="mini-media" href="catalogo/" aria-label="Ver {escape(name)} en el catálogo">'
+    media = (f'<a class="mini-media" href="catalogo/?producto={quote(pid)}" aria-label="Ver detalles de {escape(name)} en el catálogo">'
              f'{picture(photos[0][0], photos[0][1], CARD_SIZES)}'
              f'{"<span class=mini-reference>Imagen referencial</span>" if pid in ("shampoo", "jabon-cafe") else ""}</a>') if photos else ''
     return f"""
         <li>
           <article class="mini reveal">
             {media}<header>{ICON[cat]}<hgroup><p class="eyebrow">{escape(cat)}</p><h3>{escape(name)}</h3></hgroup></header>
-            <p>{escape(ingredients)}</p>
+            <p>{escape(ingredients)} <a class="mini-detail" href="catalogo/?producto={quote(pid)}">Ver detalles<span class="visually-hidden"> de {escape(name)}</span></a></p>
             <footer>
               <p class="price">{money(price)}</p>
               {add_button(pid, name, price, cls="btn btn-ghost", label="Agregar")}
@@ -791,7 +792,7 @@ catalog_json = {
     } for p in PRODUCTS] + [{
         "id": pid, "nombre": name, "categoria": cat, "grupo": GROUPS[cat],
         "destacado": False, "lema": None, "descripcion": None,
-        "ingredientes": ingredients, "inci": None, "uso": None, "precauciones": None,
+        "ingredientes": ingredients, "inci": None, "uso": SPECS.get(pid, {}).get("uso"), "precauciones": SPECS.get(pid, {}).get("precauciones"),
         "precio": PRICES[pid], "fotos": photo_json(CATALOG_PHOTOS.get(pid, [])),
     } for pid, cat, name, ingredients in CATALOG],
     # Los kits no se muestran en el catálogo, pero así el pedido compartido conoce su nombre y precio.

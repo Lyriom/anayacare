@@ -156,8 +156,15 @@
       "descripcion": null,
       "ingredientes": "Manzanilla, caléndula y vitamina E.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar sobre el rostro limpio con un atomizador a una distancia de 15 a 20 cm. Puede usarse antes de la crema habitual o como refrescante."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto directo con los ojos y mucosas.",
+        "No aplicar sobre piel lesionada, irritada o recién sometida a procedimientos estéticos.",
+        "Suspender su uso si aparece irritación o una reacción desfavorable. Mantener fuera del alcance de los niños.",
+        "Conservar en un lugar fresco, protegido de la luz y el calor."
+      ],
       "precio": 9.9,
       "fotos": [
         {
@@ -182,8 +189,13 @@
       "descripcion": null,
       "ingredientes": "Agua de hamamelis, aloe vera, glicerina vegetal y betaína de coco.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar una pequeña cantidad sobre el rostro húmedo, masajear suavemente con movimientos circulares y enjuagar con abundante agua. La etiqueta recomienda usar dos veces al día."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto con los ojos.",
+        "Si ocurre irritación, enrojecimiento o una reacción adversa, suspender su uso y consultar a un profesional."
+      ],
       "precio": 12.9,
       "fotos": [
         {
@@ -208,8 +220,12 @@
       "descripcion": null,
       "ingredientes": "Leche virginal, betaína de coco y vitamina E.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar con un algodón o disco y limpiar suavemente rostro, cuello y escote."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto con los ojos. Mantener fuera del alcance de los niños."
+      ],
       "precio": 7.9,
       "fotos": [
         {
@@ -234,8 +250,12 @@
       "descripcion": null,
       "ingredientes": "Extracto de pepino, ácido hialurónico y vitamina E.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar una pequeña cantidad sobre la piel limpia del contorno de ojos, dando suaves toques."
+      ],
+      "precauciones": [
+        "Evitar el contacto directo con los ojos."
+      ],
       "precio": 18.9,
       "fotos": [
         {
@@ -260,8 +280,13 @@
       "descripcion": null,
       "ingredientes": "Harina de arroz, avena, caolín y óxido de zinc.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Mezclar una pequeña cantidad con agua, leche limpiadora o tu producto favorito hasta formar una pasta. Aplicar con movimientos circulares y enjuagar."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto con los ojos.",
+        "Suspender su uso si presenta irritación o reacción alérgica. Mantener fuera del alcance de los niños."
+      ],
       "precio": 9.9,
       "fotos": [
         {
@@ -333,8 +358,12 @@
       "descripcion": null,
       "ingredientes": "Harina de arroz, manteca de karité y aceite de almendras.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar solo en las zonas afectadas; humedecer y masajear suavemente."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto directo con los ojos."
+      ],
       "precio": 4.9,
       "fotos": [
         {
@@ -380,8 +409,12 @@
       "descripcion": null,
       "ingredientes": "Avena, manteca de karité, aceite de coco y vainilla.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar sobre la piel húmeda, masajear suavemente y enjuagar."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto con los ojos. Mantener fuera del alcance de los niños."
+      ],
       "precio": 5.9,
       "fotos": [
         {
@@ -427,8 +460,13 @@
       "descripcion": null,
       "ingredientes": "Cera de abejas, aceite de almendras y vitamina E.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar sobre los labios tantas veces como sea necesario."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto con los ojos.",
+        "Si se observa una reacción desfavorable, suspender su uso. Mantener fuera del alcance de los niños."
+      ],
       "precio": 5.5,
       "fotos": [
         {
@@ -453,8 +491,15 @@
       "descripcion": null,
       "ingredientes": "Cera de soja, manteca de karité, aceite de almendras y lavanda.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Encender la vela y dejar que se derrita una pequeña cantidad de cera.",
+        "Apagar la llama y esperar a que la cera esté tibia, nunca caliente.",
+        "Comprobar la temperatura antes de aplicar sobre la piel y masajear suavemente."
+      ],
+      "precauciones": [
+        "No aplicar con la llama encendida ni usar cera caliente. No dejar la vela encendida sin vigilancia.",
+        "Evitar rostro, ojos y mucosas. No usar si produce irritación."
+      ],
       "precio": 13.9,
       "fotos": [
         {
@@ -479,14 +524,23 @@
       "descripcion": null,
       "ingredientes": "Aceite de almendras y aceite esencial de menta.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar sobre la zona deseada con el roll-on y masajear suavemente."
+      ],
+      "precauciones": [
+        "Uso externo. Evitar el contacto con ojos y mucosas. Mantener fuera del alcance de los niños."
+      ],
       "precio": 8.9,
       "fotos": [
         {
           "slug": "refresh-frente-ia",
           "alt": "Refresh roll-on: fotografía del producto",
-          "etiqueta": "Frente"
+          "etiqueta": "Vista de producto"
+        },
+        {
+          "slug": "refresh-frente",
+          "alt": "Etiqueta con indicaciones del Refresh roll-on",
+          "etiqueta": "Etiqueta posterior"
         }
       ]
     },
@@ -500,8 +554,14 @@
       "descripcion": null,
       "ingredientes": "Gel de textura ligera, sin fragancia.",
       "inci": null,
-      "uso": null,
-      "precauciones": null,
+      "uso": [
+        "Aplicar una capa uniforme sobre la zona a tratar o sobre el cabezal del equipo. Utilizar durante el procedimiento y retirar el exceso al finalizar."
+      ],
+      "precauciones": [
+        "Uso externo. No aplicar sobre piel irritada, lesionada o con heridas.",
+        "Evitar el contacto con los ojos y mucosas. Mantener fuera del alcance de los niños.",
+        "Almacenar en un lugar fresco y seco, protegido de la luz solar."
+      ],
       "precio": 4.9,
       "fotos": [
         {

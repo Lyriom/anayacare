@@ -61,6 +61,7 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
             <h2>Precauciones</h2>
             <ul class="list"><li v-for="nota in producto.precauciones" :key="nota">{{ nota }}</li></ul>
           </section>
+          <p v-if="!producto.uso?.length || !producto.precauciones?.length" class="nota">Las indicaciones que faltan no se distinguen o no figuran en las fotografías disponibles. Consulta la etiqueta o escríbenos para confirmarlas.</p>
           <p v-if="!producto.destacado" class="nota">Producto bajo pedido: lo preparamos en lotes pequeños y te confirmamos el tiempo de preparación por WhatsApp.</p>
 
           <div class="buy">

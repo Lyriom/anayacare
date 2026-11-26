@@ -1,6 +1,6 @@
 <script setup>
 // Página: conecta los datos (composables) con la plantilla y los organismos.
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useAnnouncer } from '../../composables/useAnnouncer.js'
 import { useCatalog } from '../../composables/useCatalog.js'
 import { usePedido } from '../../composables/usePedido.js'
@@ -56,6 +56,14 @@ async function verProducto(producto) {
   await nextTick()
   ficha.value.abrir()
 }
+
+// Abrir la ficha solicitada desde la página principal una vez cargado el catálogo.
+watch(estado, async (valor) => {
+  if (valor !== 'listo') return
+  const id = new URLSearchParams(window.location.search).get('producto')
+  const producto = productos.value.find((item) => item.id === id)
+  if (producto) await verProducto(producto)
+}, { immediate: true })
 
 const pedidoDialogo = ref(null)
 const verPedido = () => pedidoDialogo.value.abrir()
