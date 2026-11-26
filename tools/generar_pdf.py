@@ -88,42 +88,68 @@ c.setFillColor(MUTED); c.setFont('AnayaSans',8); c.drawString(36,y-19,'Precios e
 c.drawString(36,y-32,'Algunas imágenes fueron mejoradas con IA; consulta la etiqueta posterior cuando esté disponible.')
 c.showPage()
 
-# Una ficha por producto, con las vistas disponibles y las indicaciones verificables.
+# Fichas editoriales: foto principal y detalles propios de cada producto.
 w,h=A4
+ACCENTS = {
+    'Rostro': '#65765c', 'Mirada': '#a15f6d', 'Cabello': '#607b66',
+    'Cabello y barba': '#4c6458', 'Jabones': '#9a7745',
+    'Labios': '#a15f6d', 'Bienestar': '#82765d',
+}
 for index,p in enumerate(data['productos']):
     background(w,h,index+3)
-    c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(36,h-43,p['categoria'].upper())
-    title_height=paragraph(p['nombre'],36,h-54,w-72,21,25,'AnayaSerif')
-    c.setFillColor(INK);c.setFont('AnayaSerif',15);c.drawRightString(w-36,h-45,money(p['precio']))
-    photos=p['fotos']
-    count=min(len(photos),3)
-    gap=10; x0=36; image_top=h-108; image_h=195
-    image_w=(w-72-gap*(count-1))/count
-    for i,f in enumerate(photos[:3]):
-        x=x0+i*(image_w+gap)
-        c.setFillColor(SAND);c.roundRect(x,image_top-image_h,image_w,image_h,5,fill=1,stroke=0)
-        photo(ROOT/'img/productos'/f"{f['slug']}-480.jpg",x,image_top-image_h,image_w,image_h)
-        c.setFillColor(MUTED);c.setFont('AnayaSans',8);c.drawString(x+3,image_top-image_h-13,f['etiqueta'])
-    top=image_top-image_h-40
+    accent=colors.HexColor(ACCENTS.get(p['categoria'],'#65765c'))
+    c.setFillColor(accent); c.setFont('AnayaSansBold',8.5)
+    c.drawString(36,h-41,p['categoria'].upper() + '  /  ANAYA CARE')
+    c.setFillColor(MUTED); c.setFont('AnayaSans',8.5)
+    c.drawRightString(w-36,h-41,f"{index+1:02d} / {len(data['productos']):02d}")
+    title_height=paragraph(p['nombre'],36,h-54,w-72,22,25,'AnayaSerif')
+    if title_height > 52: raise ValueError(f"Título demasiado largo: {p['nombre']}")
+    c.setStrokeColor(LINE); c.line(36,h-115,w-36,h-115)
+    photos=p['fotos']; left=36; left_w=230; image_top=h-132; main_h=410
+    c.setFillColor(SAND); c.rect(left,image_top-main_h,left_w,main_h,fill=1,stroke=0)
+    first=photos[0]
+    photo(ROOT/'img/productos'/f"{first['slug']}-800.jpg",left,image_top-main_h,left_w,main_h)
+    c.setFillColor(MUTED); c.setFont('AnayaSans',8)
+    c.drawString(left,image_top-main_h-13,first['etiqueta'])
+    if len(photos)>1:
+        others=photos[1:3]; gap=9; small_w=(left_w-gap*(len(others)-1))/len(others)
+        small_top=image_top-main_h-27; small_h=145
+        for i,f in enumerate(others):
+            x=left+i*(small_w+gap)
+            c.setFillColor(SAND); c.rect(x,small_top-small_h,small_w,small_h,fill=1,stroke=0)
+            photo(ROOT/'img/productos'/f"{f['slug']}-800.jpg",x,small_top-small_h,small_w,small_h)
+            c.setFillColor(MUTED); c.setFont('AnayaSans',8); c.drawString(x,small_top-small_h-12,f['etiqueta'])
+    elif 'referencial' in first['slug']:
+        paragraph('Imagen referencial. Consulta la presentación disponible.',left,image_top-main_h-32,left_w,9,13,color=MUTED)
+    else:
+        paragraph('Vista disponible del producto.',left,image_top-main_h-32,left_w,9,13,color=MUTED)
+    x=292; col_w=w-36-x; top=image_top-2
+    if p.get('lema'):
+        top-=paragraph(p['lema'],x,top,col_w,10.5,15,'AnayaSerif',accent)+19
+    if p.get('descripcion'):
+        top-=paragraph(p['descripcion'],x,top,col_w,9.5,14,color=MUTED)+20
     def section(title, lines):
         global top
-        c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(36,top,title.upper())
-        top-=9
+        c.setStrokeColor(LINE); c.line(x,top+4,x+col_w,top+4)
+        c.setFillColor(accent); c.setFont('AnayaSansBold',8)
+        c.drawString(x,top-10,title.upper()); top-=19
         for line in lines:
-            used=paragraph(line,36,top,w-72,9.5,13,color=MUTED)
-            top-=used+5
-        top-=12
+            used=paragraph(line,x,top,col_w,10.5,16,color=INK)
+            top-=used+7
+        top-=17
     section('Ingredientes', [p['ingredientes']])
     if p.get('uso'): section('Modo de uso',p['uso'])
     if p.get('precauciones'): section('Precauciones',p['precauciones'])
     if not p.get('uso') or not p.get('precauciones'):
-        section('Información por confirmar',['Las indicaciones que faltan no se distinguen o no figuran en las fotografías disponibles. Consulta la etiqueta o contacta a Anaya Co.'])
-    if len(photos)==1:
-        section('Fotografías',['No se dispone de una imagen posterior para este producto.'])
-    if any('referencial' in f['slug'] for f in photos):
-        section('Imagen referencial',['La presentación mostrada es ilustrativa; consulta la presentación disponible.'])
-    if top < 40:
-        raise ValueError(f"La ficha de {p['nombre']} no cabe en una página: {top}")
+        missing=[]
+        if not p.get('uso'): missing.append('modo de uso')
+        if not p.get('precauciones'): missing.append('precauciones')
+        section('Información por confirmar', ['Consulta la etiqueta o escríbenos para confirmar ' + ' y '.join(missing) + '.'])
+    if top < 105: raise ValueError(f"La ficha de {p['nombre']} no cabe: {top:.1f}")
+    # Franja de compra constante y fuera de la zona de lectura.
+    c.setFillColor(colors.HexColor('#edf0e9')); c.rect(36,48,w-72,43,fill=1,stroke=0)
+    c.setFillColor(INK); c.setFont('AnayaSerif',17); c.drawString(48,62,money(p['precio']))
+    c.setFillColor(accent); c.setFont('AnayaSansBold',8.5); c.drawRightString(w-48,64,'PEDIDOS  ·  +593 96 316 0557')
     c.showPage()
 c.save()
 print('PDF creado:', OUT)
