@@ -1,0 +1,123 @@
+"""Genera catalogo-anaya.pdf desde los mismos datos que la página.
+
+Requiere reportlab y Pillow. Ejecutar desde la raíz: python3 tools/generar_pdf.py
+"""
+from pathlib import Path
+import json
+import runpy
+from xml.sax.saxutils import escape
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
+from reportlab.lib.utils import ImageReader
+
+ROOT = Path(__file__).resolve().parent.parent
+site = runpy.run_path(str(ROOT / 'tools/generar.py'))
+data = json.loads((ROOT / 'datos/catalogo.json').read_text(encoding='utf-8'))
+FONT_DIR = Path('/System/Library/Fonts/Supplemental')
+pdfmetrics.registerFont(TTFont('AnayaSans', str(FONT_DIR / 'Arial.ttf')))
+pdfmetrics.registerFont(TTFont('AnayaSansBold', str(FONT_DIR / 'Arial Bold.ttf')))
+pdfmetrics.registerFont(TTFont('AnayaSerif', str(FONT_DIR / 'Georgia.ttf')))
+INK = colors.HexColor('#2c2521')
+MUTED = colors.HexColor('#655950')
+GOLD = colors.HexColor('#9a7126')
+PAPER = colors.HexColor('#faf8f3')
+LINE = colors.HexColor('#e7d9c4')
+SAND = colors.HexColor('#f6ecdf')
+OUT = ROOT / 'catalogo-anaya.pdf'
+c = canvas.Canvas(str(OUT), pagesize=A4, pageCompression=1)
+c.setTitle('Anaya Co. - Catálogo de productos y costos')
+c.setAuthor('Anaya Co.')
+
+def paragraph(text, x, top, width, size=10, leading=15, font='AnayaSans', color=INK):
+    style = ParagraphStyle('p', fontName=font, fontSize=size, leading=leading, textColor=color, spaceAfter=0)
+    p = Paragraph(escape(str(text)), style)
+    _, h = p.wrap(width, 1000)
+    p.drawOn(c, x, top-h)
+    return h
+
+def background(w,h, num):
+    c.setFillColor(PAPER); c.rect(0,0,w,h,fill=1,stroke=0)
+    c.setStrokeColor(LINE); c.line(36,34,w-36,34)
+    c.setFont('AnayaSans',8); c.setFillColor(MUTED)
+    c.drawString(36,20,'ANAYA CO.  |  Cosmética botánica artesanal')
+    c.drawRightString(w-36,20,str(num))
+
+def photo(path, x, y, w, h):
+    im=ImageReader(str(path)); iw,ih=im.getSize(); ratio=min(w/iw,h/ih)
+    dw,dh=iw*ratio,ih*ratio
+    c.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,dw,dh,mask='auto')
+
+def money(v): return '$' + f'{v:.2f}'.replace('.',',')
+
+# Portada y propósito
+w,h=A4; background(w,h,1)
+photo(ROOT/'img/marca/logo-completo.png',w/2-75,h-190,150,145)
+c.setFillColor(GOLD); c.setFont('AnayaSansBold',9); c.drawCentredString(w/2,h-222,'BELLEZA  ·  BIENESTAR  ·  CUIDADO')
+c.setFillColor(INK); c.setFont('AnayaSerif',25); c.drawCentredString(w/2,h-258,'Catálogo de productos')
+c.setFillColor(MUTED); c.setFont('AnayaSans',10); c.drawCentredString(w/2,h-279,'Cosmética botánica artesanal elaborada en Ecuador')
+c.setStrokeColor(LINE);c.line(55,h-301,w-55,h-301)
+top=h-325
+for _,title,body in site['ESSENCE']:
+    c.setFillColor(GOLD);c.setFont('AnayaSerif',15);c.drawString(55,top,title)
+    used=paragraph(body,55,top-10,w-110,10,15,color=MUTED)
+    top-=used+46
+c.setFillColor(GOLD);c.setFont('AnayaSansBold',10);c.drawString(55,top-3,'WhatsApp  +593 96 316 0557')
+c.showPage()
+
+# Tabla de costos: horizontal para mantener las nueve columnas legibles.
+w,h=landscape(A4);c.setPageSize((w,h));background(w,h,2)
+c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(32,h-46,'COSTOS DE PRODUCCIÓN  ·  USD POR UNIDAD')
+c.setFillColor(INK);c.setFont('AnayaSerif',20);c.drawString(32,h-76,'Tabla de costos y precios')
+labels=['Producto','Materia\nprima','Envase y\netiqueta','Mano de\nobra','Costos\nindirectos','Costo\nunitario','Precio de\nventa','Utilidad','Margen']
+widths=[201,70,73,68,70,70,70,65,55]
+scale=(w-64)/sum(widths);widths=[v*scale for v in widths]
+x=32;y=h-110; rowh=20
+c.setFillColor(colors.HexColor('#eee3d2'));c.roundRect(x,y-28,sum(widths),28,3,fill=1,stroke=0)
+xpos=x
+for label,cw in zip(labels,widths):
+    for i,line in enumerate(label.split('\n')):
+        c.setFillColor(INK);c.setFont('AnayaSansBold',7.3);c.drawString(xpos+4,y-10-i*9,line)
+    xpos+=cw
+y-=28
+for idx,(name,parts,total,price,profit,margin) in enumerate(site['cost_rows']()):
+    if idx%2==0: c.setFillColor(colors.HexColor('#f4eee5'));c.rect(x,y-rowh,sum(widths),rowh,fill=1,stroke=0)
+    vals=[name,*[money(v/100) for v in parts],money(total/100),money(price/100),money(profit/100),f'{margin:.1f}'.replace('.',',')+' %']
+    xpos=x
+    for col,(val,cw) in enumerate(zip(vals,widths)):
+        c.setFont('AnayaSansBold' if col in (0,5,7) else 'AnayaSans',7.1 if col==0 else 7.4)
+        c.setFillColor(INK if col!=7 else GOLD)
+        if col==0: c.drawString(xpos+4,y-13,val)
+        else: c.drawRightString(xpos+cw-5,y-13,val)
+        xpos+=cw
+    y-=rowh
+c.setFont('AnayaSans',8);c.setFillColor(MUTED)
+c.drawString(32,y-20,'Valores estimados. No incluyen envío, impuestos ni gastos de venta. Margen = utilidad ÷ precio de venta.')
+c.showPage();c.setPageSize(A4)
+
+# 19 productos, cuatro por página.
+w,h=A4
+for offset in range(0,len(data['productos']),4):
+    page=3+offset//4;background(w,h,page)
+    c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(36,h-45,'CATÁLOGO  ·  PRODUCTOS')
+    c.setFillColor(INK);c.setFont('AnayaSerif',20);c.drawString(36,h-72,'Nuestros productos')
+    gap=16; left=36; cardw=(w-72-gap)/2; cardh=325
+    for i,p in enumerate(data['productos'][offset:offset+4]):
+        col=i%2;row=i//2;x=left+col*(cardw+gap);top=h-92-row*(cardh+14); y=top-cardh
+        c.setFillColor(colors.white);c.setStrokeColor(LINE);c.roundRect(x,y,cardw,cardh,9,fill=1,stroke=1)
+        c.setFillColor(SAND);c.roundRect(x+9,top-161,cardw-18,150,5,fill=1,stroke=0)
+        if p['fotos']:
+            photo(ROOT/'img/productos'/f"{p['fotos'][0]['slug']}-800.jpg",x+9,top-161,cardw-18,150)
+        if p['id'] in ('shampoo','jabon-cafe'):
+            c.setFont('AnayaSans',7);c.setFillColor(MUTED);c.drawRightString(x+cardw-15,top-154,'Imagen referencial')
+        c.setFillColor(GOLD);c.setFont('AnayaSansBold',8);c.drawString(x+14,top-179,p['categoria'].upper())
+        used=paragraph(p['nombre'],x+14,top-187,cardw-28,13,16,'AnayaSerif')
+        paragraph(p['ingredientes'],x+14,top-195-used,cardw-28,9,12,color=MUTED)
+        c.setFillColor(INK);c.setFont('AnayaSerif',16);c.drawString(x+14,y+17,money(p['precio']))
+    c.showPage()
+c.save()
+print('PDF creado:', OUT)

@@ -75,6 +75,7 @@ const verPedido = () => pedidoDialogo.value.abrir()
         Cosmética botánica artesanal elaborada en Ecuador. Busca por nombre o ingrediente,
         filtra por categoría y arma tu pedido: te llega a WhatsApp con la lista y el total.
       </p>
+      <a class="pdf-download" href="../catalogo-anaya.pdf" download>Descargar catálogo en PDF</a>
       <ul v-if="estado === 'listo'" class="facts">
         <li><strong>{{ productos.length }}</strong> productos</li>
         <li>Desde <strong>{{ formatoDinero(precioMinimo) }}</strong></li>
@@ -137,6 +138,8 @@ h1 { font-size: clamp(2.6rem, 1.8rem + 3.2vw, 4.4rem); margin-block: 0.5rem 0.9r
 .ornament::before, .ornament::after { content: ""; flex: 1; border-block-start: 1px solid currentColor; }
 .ornament span { inline-size: 0.45rem; block-size: 0.45rem; rotate: 45deg; background: currentColor; }
 .lead { margin-block-start: 1rem; max-inline-size: 60ch; color: var(--ink-soft); font-size: 1.1rem; }
+.pdf-download { display: inline-flex; align-items: center; justify-content: center; min-block-size: 2.75rem; margin-block-start: 1.25rem; padding: 0.6rem 1.25rem; border: 1px solid var(--gold); border-radius: 999px; color: var(--ink); font-weight: 500; text-decoration: none; }
+.pdf-download:hover { background: var(--sand); }
 .facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; margin-block-start: 1.5rem; }
 .facts li {
   display: inline-flex;

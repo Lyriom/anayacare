@@ -640,6 +640,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
           <h2 id="catalogo-title">También elaboramos</h2>
           <p>Jabones artesanales, cuidado facial, labial y bienestar. Los preparamos en lotes pequeños: agrégalos a tu pedido y te confirmamos el tiempo de preparación.</p>
           <a class="btn btn-primary section-cta" href="catalogo/">Ver el catálogo completo</a>
+          <a class="btn btn-ghost section-cta" href="catalogo-anaya.pdf" download>Descargar catálogo en PDF</a>
         </div>
         <ul class="catalog-grid">{"".join(catalog_card(*c) for c in CATALOG)}
         </ul>
