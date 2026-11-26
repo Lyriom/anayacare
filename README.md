@@ -6,8 +6,7 @@ Sitio estático de **Anaya Co.** — *Equilibrio · Ritual · Bienestar* —, co
 
 ## Qué incluye
 
-- **Productos destacados con precio**: Tratamiento Crecimiento de Pestañas, Sérum de Ácido Hialurónico, Protector Térmico Capilar y Tratamiento Capilar & Barba. Cada uno abre una ficha con **todas sus fotos**, ingredientes, modo de uso y precauciones tomados de la etiqueta.
-- **Galería** con las 9 fotos reales (frente, reverso y laterales de cada frasco).
+- **Productos destacados con precio**: Tratamiento Crecimiento de Pestañas, Sérum de Ácido Hialurónico, Protector Térmico Capilar y Tratamiento Capilar & Barba. Cada uno abre una ficha con **todas sus fotos** (enderezadas y sobre fondo de estudio), ingredientes, modo de uso y precauciones tomados de la etiqueta.
 - **Kits con ahorro** (Mirada & Rostro, Cabello Botánico, Jabones Artesanales).
 - **Catálogo bajo pedido** con precio de los demás productos artesanales.
 - **Pedido por WhatsApp**: se agregan productos, se ajustan cantidades y se envía la lista con el total a **+593 93 992 9104**. Sin JavaScript, cada producto tiene su enlace directo a WhatsApp.

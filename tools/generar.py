@@ -168,7 +168,6 @@ FAQ = [
 CARD_SIZES = "(min-width: 76rem) 17rem, (min-width: 36rem) 45vw, 92vw"
 DIALOG_SIZES_MAIN = "(min-width: 62rem) 29rem, (min-width: 52rem) 46vw, 92vw"
 DIALOG_SIZES_THUMB = "(min-width: 62rem) 14rem, (min-width: 52rem) 23vw, 46vw"
-GALLERY_SIZES = "(min-width: 76rem) 14rem, (min-width: 36rem) 30vw, 46vw"
 
 
 def add_button(pid, name, price, cls="btn btn-gold", label="Agregar al pedido"):
@@ -267,20 +266,6 @@ def product_dialog(p):
   </dialog>"""
 
 
-def gallery_items():
-    out = []
-    for p in PRODUCTS:
-        for slug, alt, cap in p["photos"]:
-            out.append(f"""
-          <li class="reveal">
-            <button type="button" class="gallery-item" command="show-modal" commandfor="dlg-{p["id"]}">
-              {picture(slug, alt, GALLERY_SIZES, widths=(480, 800), fallback=480)}
-              <span class="cap"><strong>{escape(p["name"])}</strong>{escape(cap)}</span>
-            </button>
-          </li>""")
-    return "".join(out)
-
-
 def catalog_card(pid, cat, name, ingredients):
     price = PRICES[pid]
     return f"""
@@ -347,7 +332,6 @@ def header(current_privacy=False):
         <button class="menu-button" type="button" popovertarget="site-menu" popovertargetaction="toggle" aria-controls="site-menu">{ICON["menu"]}<span>Menú</span></button>
         <ul id="site-menu" class="site-menu" popover="auto">
           <li><a href="{pre}#productos">Productos</a></li>
-          <li><a href="{pre}#galeria">Galería</a></li>
           <li><a href="{pre}#catalogo">Catálogo</a></li>
           <li><a href="{pre}#nosotros">Nosotros</a></li>
           <li><a href="{pre}#preguntas">Preguntas</a></li>
@@ -374,7 +358,6 @@ def footer(current_privacy=False):
         <h2 id="footer-nav-title">Explora</h2>
         <ul>
           <li><a href="{pre}#productos">Productos y precios</a></li>
-          <li><a href="{pre}#galeria">Galería</a></li>
           <li><a href="{pre}#nosotros">Misión y visión</a></li>
           <li><a href="{pre}#preguntas">Preguntas frecuentes</a></li>
         </ul>
@@ -510,19 +493,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section section-alt" id="galeria" aria-labelledby="galeria-title">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Galería</p>
-          <h2 id="galeria-title">Cada frasco, por todos sus lados</h2>
-          <p>Fotos reales de nuestros productos: frente, reverso y etiquetas con ingredientes, modo de uso y precauciones.</p>
-        </div>
-        <ul class="gallery-grid">{gallery_items()}
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" id="catalogo" aria-labelledby="catalogo-title">
+    <section class="section section-alt" id="catalogo" aria-labelledby="catalogo-title">
       <div class="wrap">
         <div class="section-head reveal">
           <p class="eyebrow">Bajo pedido</p>
@@ -534,7 +505,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section section-alt" id="como-comprar" aria-labelledby="comprar-title">
+    <section class="section" id="como-comprar" aria-labelledby="comprar-title">
       <div class="wrap">
         <div class="section-head center reveal">
           <p class="eyebrow">Cómo comprar</p>
@@ -545,7 +516,7 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section" id="nosotros" aria-labelledby="nosotros-title">
+    <section class="section section-alt" id="nosotros" aria-labelledby="nosotros-title">
       <div class="wrap">
         <div class="section-head reveal">
           <p class="eyebrow">Nosotros</p>
@@ -579,18 +550,22 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section section-alt" id="preguntas" aria-labelledby="preguntas-title">
-      <div class="wrap">
-        <div class="section-head reveal">
+    <section class="section" id="preguntas" aria-labelledby="preguntas-title">
+      <div class="wrap faq-layout">
+        <div class="section-head faq-intro reveal">
           <p class="eyebrow">Preguntas frecuentes</p>
           <h2 id="preguntas-title">Antes de pedir</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+          <p>Lo que más nos preguntan sobre pedidos, entrega y cuidado de los productos.</p>
+          <p class="faq-cta">¿No encuentras tu respuesta?</p>
+          <a class="btn btn-wa" href="{escape(wa(f"Hola {BRAND}, tengo una pregunta sobre sus productos."))}" target="_blank" rel="noopener">{ICON["whatsapp"]}Pregúntanos por WhatsApp</a>
         </div>
         <div class="faq">{"".join(f'<details><summary>{escape(q)}</summary><div>{a}</div></details>' for q, a in FAQ)}
         </div>
       </div>
     </section>
 
-    <section class="section" id="contacto" aria-labelledby="contacto-title">
+    <section class="section section-alt" id="contacto" aria-labelledby="contacto-title">
       <div class="wrap">
         <div class="contact reveal">
           <div>
