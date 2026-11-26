@@ -104,27 +104,16 @@ for index,p in enumerate(data['productos']):
     title_height=paragraph(p['nombre'],36,h-54,w-72,22,25,'AnayaSerif')
     if title_height > 52: raise ValueError(f"Título demasiado largo: {p['nombre']}")
     c.setStrokeColor(LINE); c.line(36,h-115,w-36,h-115)
-    photos=p['fotos']; left=36; left_w=230; image_top=h-132; main_h=287.5
-    c.setFillColor(SAND); c.rect(left,image_top-main_h,left_w,main_h,fill=1,stroke=0)
-    first=photos[0]
-    photo(ROOT/'img/productos'/f"{first['slug']}-800.jpg",left,image_top-main_h,left_w,main_h)
-    c.setFillColor(MUTED); c.setFont('AnayaSans',8)
-    c.drawString(left,image_top-main_h-13,first['etiqueta'])
-    if len(photos)>1:
-        others=([photos[1], photos[-1]] if len(photos)>3 else photos[1:3]); gap=9; small_w=(left_w-gap*(len(others)-1))/len(others)
-        small_top=image_top-main_h-27; small_h=210 if len(others)==1 else 130
-        for i,f in enumerate(others):
-            image_path=ROOT/'img/productos'/f"{f['slug']}-800.jpg"
-            iw,ih=ImageReader(str(image_path)).getSize()
-            actual_w=min(small_w,small_h*iw/ih)
-            x=left+i*(small_w+gap)
-            c.setFillColor(SAND); c.rect(x,small_top-small_h,actual_w,small_h,fill=1,stroke=0)
-            photo(image_path,x,small_top-small_h,actual_w,small_h)
-            paragraph(f['etiqueta'],x,small_top-small_h-4,small_w,7,9,color=MUTED)
-    elif 'referencial' in first['slug']:
-        paragraph('Imagen referencial. Consulta la presentación disponible.',left,image_top-main_h-32,left_w,9,13,color=MUTED)
-    else:
-        paragraph('Vista disponible del producto.',left,image_top-main_h-32,left_w,9,13,color=MUTED)
+    photos=p['fotos'][:3]; left=36; left_w=230; image_top=h-132
+    # Todas las vistas del mismo producto comparten el mismo marco y altura.
+    image_h = 260 if len(photos) <= 2 else 165
+    for i,f in enumerate(photos):
+        image_y=image_top-i*(image_h+23)-image_h
+        c.setFillColor(SAND); c.rect(left,image_y,left_w,image_h,fill=1,stroke=0)
+        photo(ROOT/'img/productos'/f"{f['slug']}-800.jpg",left,image_y,left_w,image_h)
+        paragraph(f['etiqueta'],left,image_y-4,left_w,8,10,color=MUTED)
+    if len(photos)==1 and 'referencial' in photos[0]['slug']:
+        paragraph('Imagen referencial. Consulta la presentación disponible.',left,image_top-image_h-27,left_w,9,13,color=MUTED)
     x=292; col_w=w-36-x; top=image_top-2
     if p.get('lema'):
         top-=paragraph(p['lema'],x,top,col_w,10.5,15,'AnayaSerif',accent)+19
