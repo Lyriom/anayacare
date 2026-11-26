@@ -1,6 +1,6 @@
 {
   "marca": "Anaya Co.",
-  "whatsapp": "593939929104",
+  "whatsapp": "593963160557",
   "grupos": [
     "Rostro y mirada",
     "Cabello y barba",
@@ -315,7 +315,13 @@
       "uso": null,
       "precauciones": null,
       "precio": 8.9,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "shampoo-referencial",
+          "alt": "Imagen referencial generada del shampoo de cebolla",
+          "etiqueta": "Imagen referencial"
+        }
+      ]
     },
     {
       "id": "jabon-arroz",
@@ -403,7 +409,13 @@
       "uso": null,
       "precauciones": null,
       "precio": 5.5,
-      "fotos": []
+      "fotos": [
+        {
+          "slug": "jabon-cafe-referencial",
+          "alt": "Imagen referencial generada del jabón exfoliante de café",
+          "etiqueta": "Imagen referencial"
+        }
+      ]
     },
     {
       "id": "balsamo-labial",

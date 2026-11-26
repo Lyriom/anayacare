@@ -26,8 +26,8 @@ COSTS = json.loads((REPO / "datos" / "costos.json").read_text(encoding="utf-8"))
 MOSTRAR_COSTOS = True  # sección temporal de costos de producción al final de la página
 PRIVACY_ARTICLE = (TOOLS / "privacidad-articulo.html").read_text(encoding="utf-8")
 
-WA_NUMBER = "593939929104"
-WA_DISPLAY = "+593 93 992 9104"
+WA_NUMBER = "593963160557"
+WA_DISPLAY = "+593 96 316 0557"
 SITE = "https://lyriom.github.io/anayacare/"
 BRAND = "Anaya Co."
 
@@ -145,6 +145,8 @@ CATALOG = [
 ]
 
 CATALOG_PHOTOS = {
+    'shampoo': [("shampoo-referencial", "Imagen referencial generada del shampoo de cebolla", "Imagen referencial")],
+    'jabon-cafe': [("jabon-cafe-referencial", "Imagen referencial generada del jabón exfoliante de café", "Imagen referencial")],
     'exfoliante-arroz': [("exfoliante-arroz-frente-ia", "Exfoliante de arroz: fotografía del producto", "Frente"), ("exfoliante-arroz-reverso", "Exfoliante de arroz: etiqueta posterior", "Reverso")],
     'vela-masaje': [("vela-masaje-frente-ia", "Vela de masaje: fotografía del producto", "Frente"), ("vela-masaje-reverso", "Vela de masaje: etiqueta posterior", "Reverso")],
     'gel-neutro': [("gel-neutro-frente-ia", "Gel neutro: fotografía del producto", "Frente"), ("gel-neutro-reverso", "Gel neutro: etiqueta posterior", "Reverso")],
@@ -292,7 +294,8 @@ def catalog_card(pid, cat, name, ingredients):
     price = PRICES[pid]
     photos = CATALOG_PHOTOS.get(pid, [])
     media = (f'<a class="mini-media" href="catalogo/" aria-label="Ver {escape(name)} en el catálogo">'
-             f'{picture(photos[0][0], photos[0][1], CARD_SIZES)}</a>') if photos else ''
+             f'{picture(photos[0][0], photos[0][1], CARD_SIZES)}'
+             f'{"<span class=mini-reference>Imagen referencial</span>" if pid in ("shampoo", "jabon-cafe") else ""}</a>') if photos else ''
     return f"""
         <li>
           <article class="mini reveal">

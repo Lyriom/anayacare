@@ -17,7 +17,7 @@ import ProductGrid from '../organisms/ProductGrid.vue'
 import CatalogTemplate from '../templates/CatalogTemplate.vue'
 
 const MARCA = 'Anaya Co.'
-const WHATSAPP = '593939929104'
+const WHATSAPP = '593963160557'
 
 const {
   datos, estado, cargar, productos, grupos, visibles, precioMinimo, articulos,

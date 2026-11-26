@@ -24,4 +24,5 @@ defineProps({
 
 <style scoped>
 img { inline-size: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: #f8e9d9; border-radius: inherit; }
+@media (max-width: 40rem) { img { aspect-ratio: 1 / 1; } }
 </style>

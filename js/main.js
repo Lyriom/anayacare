@@ -3,7 +3,7 @@
 
 document.documentElement.classList.add('has-js');
 
-const WA_NUMBER = '593939929104';
+const WA_NUMBER = '593963160557';
 
 const loadScript = (src) =>
   new Promise((resolve, reject) => {

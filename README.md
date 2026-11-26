@@ -10,7 +10,7 @@ Sitio estático de **Anaya Co.** — *Equilibrio · Ritual · Bienestar* —, co
 - **Kits con ahorro** (Mirada & Rostro, Cabello Botánico, Jabones Artesanales).
 - **Catálogo bajo pedido** con precio de los demás productos artesanales.
 - **Página de catálogo en Vue 3 con Atomic Design** (`catalogo/`): los 19 productos con buscador, filtro por categoría, ficha con todas las fotos y el mismo pedido por WhatsApp que la página principal.
-- **Pedido por WhatsApp**: se agregan productos, se ajustan cantidades y se envía la lista con el total a **+593 93 992 9104**. Sin JavaScript, cada producto tiene su enlace directo a WhatsApp.
+- **Pedido por WhatsApp**: se agregan productos, se ajustan cantidades y se envía la lista con el total a **+593 96 316 0557**. Sin JavaScript, cada producto tiene su enlace directo a WhatsApp.
 - **Misión, visión y objetivo** al inicio de la página, justo después de la portada.
 - **Cómo comprar**, **nosotros y valores**, **preguntas frecuentes** y **contacto**.
 - **Costos de producción por unidad** (sección temporal al final): materia prima, envase y etiqueta, mano de obra, costos indirectos, costo unitario, utilidad y margen.
