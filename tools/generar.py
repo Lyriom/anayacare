@@ -431,7 +431,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preload" href="fonts/cormorant-garamond-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/styles.css?v=5">
+  <link rel="stylesheet" href="css/styles.css?v=6">
   <script>document.documentElement.classList.add('has-js')</script>{og}"""
 
 
@@ -577,19 +577,25 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-inner">
         <div class="hero-brand">
-          <h1 id="hero-title">{logo_img("logo-completo", f"{BRAND} — Equilibrio, ritual, bienestar", 900, 864)}</h1>
-          <div class="ornament" aria-hidden="true"><span></span></div>
-          <p class="kicker">Cosmética botánica artesanal</p>
-          <p class="lead">Aceites, sérums, jabones y tratamientos elaborados a mano en pequeños lotes, con ingredientes naturales como ricino, argán, jojoba, romero y ácido hialurónico.</p>
-          <p class="price-chip">Productos desde <strong>{money(all_min)}</strong></p>
+          <p class="hero-overline"><span>ANAYA CO.</span><span>CUIDADO BOTÁNICO · ECUADOR</span></p>
+          <h1 id="hero-title">Un momento <em>para ti.</em></h1>
+          <p class="lead">Cosmética artesanal para acompañar tus rituales de cuidado, creada en pequeños lotes con ingredientes de origen natural.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#productos">Ver productos y precios</a>
-            <a class="btn btn-wa" href="{escape(wa(f"Hola {BRAND}, quisiera información sobre sus productos."))}" target="_blank" rel="noopener">{ICON["whatsapp"]}Escríbenos</a>
+            <a class="hero-link" href="catalogo/">Explorar el catálogo <span aria-hidden="true">↗</span></a>
+            <span class="hero-price">Productos desde {money(all_min)}</span>
           </div>
+          <p class="hero-signature">Equilibrio <span>·</span> ritual <span>·</span> bienestar</p>
         </div>
-        <figure class="hero-figure">
-          {picture("hero-coleccion", "Colección Anaya: protector térmico capilar, tratamiento de pestañas, sérum de ácido hialurónico y tratamiento capilar y barba en frascos gotero con tapa dorada", "(min-width: 60rem) 54vw, 100vw", base="img", widths=(800, 1200, 2000), dims=(1200, 900), fallback=1200, loading=None, fetchpriority="high")}
-        </figure>
+        <div class="hero-editorial" aria-label="Una selección de Anaya Care">
+          <figure class="hero-product hero-product-main">
+            {picture("serum-hialuronico-frente-ia", "Sérum de ácido hialurónico Anaya Care", "(min-width: 60rem) 27vw, 55vw", loading=None, fetchpriority="high")}
+            <figcaption><span>01 / ROSTRO</span><span>Sérum de ácido hialurónico</span></figcaption>
+          </figure>
+          <figure class="hero-product hero-product-secondary">
+            {picture("protector-termico-frente-ia", "Protector térmico capilar Anaya Care", "(min-width: 60rem) 19vw, 38vw", loading=None)}
+            <figcaption><span>02 / CABELLO</span><span>Protector térmico capilar</span></figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 

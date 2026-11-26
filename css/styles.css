@@ -307,68 +307,36 @@ button { font: inherit; color: inherit; }
   [popover]:not(.\:popover-open) { display: none; }
 }
 
-/* ---------- Hero ---------- */
-.hero {
-  position: relative;
-  overflow: clip;
-  background:
-    radial-gradient(50rem 30rem at 90% 0%, #f4e9dc, transparent 70%),
-    radial-gradient(40rem 30rem at 0% 100%, var(--sage-soft), transparent 70%),
-    var(--ivory);
-}
-.hero-inner {
-  display: grid;
-  gap: clamp(2rem, 1rem + 4vw, 4rem);
-  align-items: center;
-  padding-block: clamp(2.5rem, 1rem + 5vw, 5.5rem);
-}
+/* ---------- Portada editorial ---------- */
+.hero { background: #ece9df; overflow: clip; }
+.hero-inner { display: grid; gap: 2.5rem; padding-block: clamp(2.25rem, 1rem + 3vw, 4.5rem); }
+.hero-brand { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-overline { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; font-size: .7rem; font-weight: 600; letter-spacing: .14em; color: #55614c; }
+.hero-overline span:first-child { color: var(--ink); }
+.hero h1 { max-inline-size: 12ch; margin-block: clamp(2rem, 1rem + 4vw, 4rem) 1.4rem; font-size: clamp(3.2rem, 2rem + 3vw, 5.5rem); line-height: .96; letter-spacing: -.035em; }
+.hero h1 em { display: block; font-weight: 400; color: #667558; }
+.hero .lead { max-inline-size: 28rem; color: #514e43; font-size: clamp(1rem, .94rem + .25vw, 1.125rem); }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-block-start: 2rem; }
+.hero-link { display: inline-flex; align-items: center; gap: 2.5rem; min-block-size: 3.2rem; padding: .8rem 1.1rem; color: #fffdf9; background: #354638; font-size: .9rem; font-weight: 500; text-decoration: none; }
+.hero-link:hover { background: #243629; }
+.hero-link span { font-size: 1.25rem; }
+.hero-price { font-size: .85rem; color: #5d5e51; }
+.hero-signature { display: flex; gap: .45rem; margin-block-start: 2.75rem; color: #67735e; font-family: var(--font-display); font-size: 1.2rem; font-style: italic; }
+.hero-editorial { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(.75rem, 1.5vw, 1.5rem); align-items: end; }
+.hero-product { min-inline-size: 0; margin: 0; }
+.hero-product picture { display: block; overflow: hidden; background: #f5e9df; }
+.hero-product img { display: block; inline-size: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.hero-product-secondary { padding-block-end: 2.5rem; }
+.hero-product figcaption { display: grid; gap: .15rem; padding-block-start: .75rem; color: #50564a; font-size: .78rem; line-height: 1.3; }
+.hero-product figcaption span:first-child { color: #6d775f; font-size: .65rem; font-weight: 600; letter-spacing: .13em; }
 @media (min-width: 60rem) {
-  .hero-inner { grid-template-columns: 0.9fr 1.1fr; }
+  .hero-inner { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: clamp(3rem, 5vw, 6rem); }
 }
-.hero-brand { display: grid; justify-items: center; text-align: center; gap: 1.25rem; }
-@media (min-width: 60rem) { .hero-brand { justify-items: start; text-align: start; } }
-.hero h1 { margin: 0; }
-.hero h1 img { inline-size: clamp(14rem, 10rem + 10vw, 19rem); }
-.hero .kicker {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
-  font-style: italic;
-  line-height: 1.2;
-  color: var(--ink);
-}
-.hero .lead {
-  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.2rem);
-  color: var(--ink-soft);
-  max-inline-size: 34rem;
-}
-.price-chip {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  padding: 0.35rem 1rem;
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  color: var(--gold-text);
-  font-size: 0.95rem;
-}
-.price-chip strong { font-family: var(--font-display); font-size: 1.35rem; font-weight: 600; }
-.hero-actions { display: flex; flex-wrap: wrap; justify-content: inherit; gap: 0.75rem; }
-@media (max-width: 59.99rem) { .hero-actions { justify-content: center; } }
-.hero-figure { margin: 0; position: relative; }
-.hero-figure img {
-  inline-size: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow-soft);
-}
-.hero-figure::after {
-  content: "";
-  position: absolute;
-  inset: 0.75rem;
-  border: 1px solid rgb(184 141 59 / 0.55);
-  border-radius: calc(var(--radius-l) - 0.6rem);
-  pointer-events: none;
+@media (max-width: 39.99rem) {
+  .hero-inner { gap: 2rem; }
+  .hero h1 { margin-block-start: 2rem; }
+  .hero-signature { margin-block-start: 1.75rem; }
+  .hero-product-secondary { padding-block-end: 1.5rem; }
 }
 
 /* ---------- Franja de confianza ---------- */
