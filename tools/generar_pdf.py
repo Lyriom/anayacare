@@ -105,20 +105,23 @@ for index,p in enumerate(data['productos']):
     title_height=paragraph(p['nombre'],36,h-54,w-72,22,25,'AnayaSerif')
     if title_height > 52: raise ValueError(f"Título demasiado largo: {p['nombre']}")
     c.setStrokeColor(LINE); c.line(36,h-115,w-36,h-115)
-    photos=p['fotos']; left=36; left_w=230; image_top=h-132; main_h=410
+    photos=p['fotos']; left=36; left_w=230; image_top=h-132; main_h=287.5
     c.setFillColor(SAND); c.rect(left,image_top-main_h,left_w,main_h,fill=1,stroke=0)
     first=photos[0]
     photo(ROOT/'img/productos'/f"{first['slug']}-800.jpg",left,image_top-main_h,left_w,main_h)
     c.setFillColor(MUTED); c.setFont('AnayaSans',8)
     c.drawString(left,image_top-main_h-13,first['etiqueta'])
     if len(photos)>1:
-        others=photos[1:3]; gap=9; small_w=(left_w-gap*(len(others)-1))/len(others)
-        small_top=image_top-main_h-27; small_h=145
+        others=([photos[1], photos[-1]] if len(photos)>3 else photos[1:3]); gap=9; small_w=(left_w-gap*(len(others)-1))/len(others)
+        small_top=image_top-main_h-27; small_h=210 if len(others)==1 else 130
         for i,f in enumerate(others):
+            image_path=ROOT/'img/productos'/f"{f['slug']}-800.jpg"
+            iw,ih=ImageReader(str(image_path)).getSize()
+            actual_w=min(small_w,small_h*iw/ih)
             x=left+i*(small_w+gap)
-            c.setFillColor(SAND); c.rect(x,small_top-small_h,small_w,small_h,fill=1,stroke=0)
-            photo(ROOT/'img/productos'/f"{f['slug']}-800.jpg",x,small_top-small_h,small_w,small_h)
-            c.setFillColor(MUTED); c.setFont('AnayaSans',8); c.drawString(x,small_top-small_h-12,f['etiqueta'])
+            c.setFillColor(SAND); c.rect(x,small_top-small_h,actual_w,small_h,fill=1,stroke=0)
+            photo(image_path,x,small_top-small_h,actual_w,small_h)
+            paragraph(f['etiqueta'],x,small_top-small_h-4,small_w,7,9,color=MUTED)
     elif 'referencial' in first['slug']:
         paragraph('Imagen referencial. Consulta la presentación disponible.',left,image_top-main_h-32,left_w,9,13,color=MUTED)
     else:
@@ -140,6 +143,8 @@ for index,p in enumerate(data['productos']):
     section('Ingredientes', [p['ingredientes']])
     if p.get('uso'): section('Modo de uso',p['uso'])
     if p.get('precauciones'): section('Precauciones',p['precauciones'])
+    if p.get('orientativo'):
+        section('Guía orientativa', ['Las indicaciones de uso y precauciones son generales; confirma las instrucciones específicas en la etiqueta.'])
     if not p.get('uso') or not p.get('precauciones'):
         missing=[]
         if not p.get('uso'): missing.append('modo de uso')

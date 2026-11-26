@@ -78,6 +78,7 @@ PRODUCTS = [
                      "Suspender su uso en caso de irritación o reacción adversa.", "Mantener fuera del alcance de los niños."],
         "photos": [
             ("pestanas-frente-ia", "Frasco gotero ámbar del Tratamiento Crecimiento de Pestañas, etiqueta frontal rosa con ilustración de ojo", "Frente"),
+            ("pestanas-reverso-ia", "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones", "Reverso recreado con IA"),
             ("pestanas-reverso", "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones", "Reverso"),
         ],
     },
@@ -93,6 +94,7 @@ PRODUCTS = [
                      "Conservar en un lugar fresco y seco, protegido de la luz."],
         "photos": [
             ("serum-hialuronico-frente-ia", "Frasco gotero de vidrio transparente del Sérum de Ácido Hialurónico con tapa dorada", "Frente"),
+            ("serum-hialuronico-reverso-ia", "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento", "Reverso recreado con IA"),
             ("serum-hialuronico-reverso", "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento", "Reverso"),
         ],
     },
@@ -109,6 +111,7 @@ PRODUCTS = [
                      "Mantener fuera del alcance de los niños.", "Suspender su uso si presenta irritación.", "Conservar en lugar fresco."],
         "photos": [
             ("protector-termico-frente-ia", "Frasco gotero ámbar del Protector Térmico Capilar con etiqueta botánica de romero y aguacate", "Frente"),
+            ("protector-termico-uso-ia", "Lateral de la etiqueta del protector térmico con el modo de uso", "Modo de uso recreado con IA"),
             ("protector-termico-uso", "Lateral de la etiqueta del protector térmico con el modo de uso", "Modo de uso"),
             ("protector-termico-precauciones", "Lateral de la etiqueta del protector térmico con las precauciones", "Precauciones"),
         ],
@@ -254,17 +257,21 @@ def product_dialog(p):
               <p>{escape(p["ingredients_text"])}</p>
               {f'<p class="inci"><strong>INCI:</strong> {escape(p["inci"])}</p>' if p["inci"] else ""}
             </section>"""]
-    if p["usage"]:
-        if len(p["usage"]) > 1:
-            items = "".join(f"<li>{escape(u)}</li>" for u in p["usage"])
+    usage = p["usage"] or SPECS.get(p["id"], {}).get("uso")
+    cautions = p["cautions"] or SPECS.get(p["id"], {}).get("precauciones")
+    if usage:
+        if len(usage) > 1:
+            items = "".join(f"<li>{escape(u)}</li>" for u in usage)
             sections.append(f'<section><h2>Modo de uso</h2><ol class="steps">{items}</ol></section>')
         else:
-            sections.append(f'<section><h2>Modo de uso</h2><p>{escape(p["usage"][0])}</p></section>')
+            sections.append(f'<section><h2>Modo de uso</h2><p>{escape(usage[0])}</p></section>')
     else:
         sections.append('<section><h2>Modo de uso</h2><p>Escríbenos por WhatsApp y te indicamos cómo aplicarlo según tu necesidad.</p></section>')
-    if p["cautions"]:
-        items = "".join(f"<li>{escape(c)}</li>" for c in p["cautions"])
+    if cautions:
+        items = "".join(f"<li>{escape(c)}</li>" for c in cautions)
         sections.append(f'<section><h2>Precauciones</h2><ul class="cautions">{items}</ul></section>')
+    if SPECS.get(p["id"], {}).get("orientativo"):
+        sections.append('<p class="nota">La guía de uso y las precauciones son orientativas; confirma las indicaciones específicas en la etiqueta.</p>')
     return f"""
   <dialog id="dlg-{p["id"]}" class="sheet" closedby="any" aria-labelledby="dlg-{p["id"]}-title">
     <form method="dialog" class="dialog-close-form">
@@ -807,12 +814,12 @@ catalog_json = {
     "productos": [{
         "id": p["id"], "nombre": p["name"], "categoria": p["category"], "grupo": GROUPS[p["category"]],
         "destacado": True, "lema": p["tagline"], "descripcion": p["summary"],
-        "ingredientes": p["ingredients_text"], "inci": p["inci"], "uso": p["usage"], "precauciones": p["cautions"],
+        "ingredientes": p["ingredients_text"], "inci": p["inci"], "uso": p["usage"] or SPECS.get(p["id"], {}).get("uso"), "precauciones": p["cautions"] or SPECS.get(p["id"], {}).get("precauciones"), "orientativo": SPECS.get(p["id"], {}).get("orientativo", False),
         "precio": PRICES[p["id"]], "fotos": photo_json(p["photos"]),
     } for p in PRODUCTS] + [{
         "id": pid, "nombre": name, "categoria": cat, "grupo": GROUPS[cat],
         "destacado": False, "lema": None, "descripcion": None,
-        "ingredientes": ingredients, "inci": None, "uso": SPECS.get(pid, {}).get("uso"), "precauciones": SPECS.get(pid, {}).get("precauciones"),
+        "ingredientes": ingredients, "inci": None, "uso": SPECS.get(pid, {}).get("uso"), "precauciones": SPECS.get(pid, {}).get("precauciones"), "orientativo": SPECS.get(pid, {}).get("orientativo", False),
         "precio": PRICES[pid], "fotos": photo_json(CATALOG_PHOTOS.get(pid, [])),
     } for pid, cat, name, ingredients in CATALOG],
     # Los kits no se muestran en el catálogo, pero así el pedido compartido conoce su nombre y precio.

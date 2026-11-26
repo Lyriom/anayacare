@@ -49,12 +49,12 @@ onBeforeUnmount(() => clearTimeout(espera))
         </figure>
       </div>
     </div>
-    <div v-if="fotos.length > 1" class="gallery-footer">
+    <div class="gallery-footer">
       <span class="caption">{{ fotos[activa].etiqueta }}</span>
-      <div class="dots" role="group" aria-label="Elegir foto">
+      <div v-if="fotos.length > 1" class="dots" role="group" aria-label="Elegir foto">
         <button v-for="(foto, i) in fotos" :key="foto.slug" type="button" :aria-label="`Ver ${foto.etiqueta}`" :aria-current="i === activa ? 'true' : undefined" @click="irA(i)"><span /></button>
       </div>
-      <span class="count">{{ activa + 1 }} / {{ fotos.length }}</span>
+      <span v-if="fotos.length > 1" class="count">{{ activa + 1 }} / {{ fotos.length }}</span>
     </div>
     <p class="visually-hidden" role="status" aria-live="polite">{{ anuncio }}</p>
   </section>
