@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lyriom.github.io/anayacare/sitemap.xml
