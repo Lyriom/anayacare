@@ -41,8 +41,10 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
         <RoundButton etiqueta="Cerrar" type="submit" value="cerrar">×</RoundButton>
       </form>
       <div class="layout">
-        <PhotoGallery v-if="producto.fotos.length" :key="producto.id" :fotos="producto.fotos" />
-        <div v-else class="sin-fotos"><ProductMedia :producto="producto" /></div>
+        <div class="visual">
+          <PhotoGallery v-if="producto.fotos.length" :key="producto.id" :fotos="producto.fotos" />
+          <div v-else class="sin-fotos"><ProductMedia :producto="producto" /></div>
+        </div>
 
         <div class="body">
           <header>
@@ -85,9 +87,11 @@ const consulta = computed(() => props.producto && enlaceWhatsApp(
 <style scoped>
 .close { position: sticky; inset-block-start: 0; z-index: 2; block-size: 0; }
 .close :deep(.round) { position: absolute; inset-block-start: 0.75rem; inset-inline-end: 0.75rem; }
-.layout { display: grid; align-items: start; }
+.layout { display: grid; }
+.visual { min-inline-size: 0; background: #f7f0e8; }
 @media (min-width: 52rem) {
   .layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+  .visual { align-self: stretch; }
 }
 .sin-fotos { padding: 0.5rem; background: var(--sand); }
 .sin-fotos :deep(.media) { border-radius: var(--radius-s); }

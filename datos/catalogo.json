@@ -31,7 +31,7 @@
       "precio": 12.9,
       "fotos": [
         {
-          "slug": "pestanas-frente",
+          "slug": "pestanas-frente-ia",
           "alt": "Frasco gotero ámbar del Tratamiento Crecimiento de Pestañas, etiqueta frontal rosa con ilustración de ojo",
           "etiqueta": "Frente"
         },
@@ -65,7 +65,7 @@
       "precio": 19.9,
       "fotos": [
         {
-          "slug": "serum-hialuronico-frente",
+          "slug": "serum-hialuronico-frente-ia",
           "alt": "Frasco gotero de vidrio transparente del Sérum de Ácido Hialurónico con tapa dorada",
           "etiqueta": "Frente"
         },
@@ -104,7 +104,7 @@
       "precio": 11.9,
       "fotos": [
         {
-          "slug": "protector-termico-frente",
+          "slug": "protector-termico-frente-ia",
           "alt": "Frasco gotero ámbar del Protector Térmico Capilar con etiqueta botánica de romero y aguacate",
           "etiqueta": "Frente"
         },
@@ -135,7 +135,7 @@
       "precio": 12.9,
       "fotos": [
         {
-          "slug": "capilar-barba-frente",
+          "slug": "capilar-barba-frente-ia",
           "alt": "Frasco gotero ámbar del Tratamiento Capilar & Barba con etiqueta gris oscuro Botanical Care",
           "etiqueta": "Frente"
         },

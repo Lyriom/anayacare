@@ -77,7 +77,7 @@ PRODUCTS = [
         "cautions": ["Uso externo únicamente.", "Evitar el contacto con los ojos.",
                      "Suspender su uso en caso de irritación o reacción adversa.", "Mantener fuera del alcance de los niños."],
         "photos": [
-            ("pestanas-frente", "Frasco gotero ámbar del Tratamiento Crecimiento de Pestañas, etiqueta frontal rosa con ilustración de ojo", "Frente"),
+            ("pestanas-frente-ia", "Frasco gotero ámbar del Tratamiento Crecimiento de Pestañas, etiqueta frontal rosa con ilustración de ojo", "Frente"),
             ("pestanas-reverso", "Reverso de la etiqueta del tratamiento de pestañas con ingredientes, modo de uso y precauciones", "Reverso"),
         ],
     },
@@ -92,7 +92,7 @@ PRODUCTS = [
                      "Suspender su uso en caso de irritación o reacción adversa.", "Mantener fuera del alcance de los niños.",
                      "Conservar en un lugar fresco y seco, protegido de la luz."],
         "photos": [
-            ("serum-hialuronico-frente", "Frasco gotero de vidrio transparente del Sérum de Ácido Hialurónico con tapa dorada", "Frente"),
+            ("serum-hialuronico-frente-ia", "Frasco gotero de vidrio transparente del Sérum de Ácido Hialurónico con tapa dorada", "Frente"),
             ("serum-hialuronico-reverso", "Reverso de la etiqueta del sérum con ingredientes, modo de uso, precauciones y fechas de elaboración y vencimiento", "Reverso"),
         ],
     },
@@ -108,7 +108,7 @@ PRODUCTS = [
         "cautions": ["Uso externo solamente.", "Evitar contacto con los ojos.", "No ingerir.",
                      "Mantener fuera del alcance de los niños.", "Suspender su uso si presenta irritación.", "Conservar en lugar fresco."],
         "photos": [
-            ("protector-termico-frente", "Frasco gotero ámbar del Protector Térmico Capilar con etiqueta botánica de romero y aguacate", "Frente"),
+            ("protector-termico-frente-ia", "Frasco gotero ámbar del Protector Térmico Capilar con etiqueta botánica de romero y aguacate", "Frente"),
             ("protector-termico-uso", "Lateral de la etiqueta del protector térmico con el modo de uso", "Modo de uso"),
             ("protector-termico-precauciones", "Lateral de la etiqueta del protector térmico con las precauciones", "Precauciones"),
         ],
@@ -121,7 +121,7 @@ PRODUCTS = [
         "ingredients_text": "Aceite de almendras dulces, aceite de ricino, aceite esencial de bergamota, aceite esencial de romero y vitamina E (tocopherol).",
         "inci": None, "usage": None, "cautions": None,
         "photos": [
-            ("capilar-barba-frente", "Frasco gotero ámbar del Tratamiento Capilar & Barba con etiqueta gris oscuro Botanical Care", "Frente"),
+            ("capilar-barba-frente-ia", "Frasco gotero ámbar del Tratamiento Capilar & Barba con etiqueta gris oscuro Botanical Care", "Frente"),
             ("capilar-barba-reverso", "Reverso de la etiqueta del tratamiento capilar y barba con ingredientes INCI, elaboración, expiración y lote", "Reverso"),
         ],
     },
@@ -165,9 +165,9 @@ CATALOG_PHOTOS = {
 
 KITS = [
     ("kit-mirada", "Kit Mirada & Rostro", "Para tu ritual de noche: pestañas y piel hidratadas.",
-     ["pestanas", "serum"], ["pestanas-frente", "serum-hialuronico-frente"]),
+     ["pestanas", "serum"], ["pestanas-frente-ia", "serum-hialuronico-frente-ia"]),
     ("kit-cabello", "Kit Cabello Botánico", "Limpieza, tónico y protección antes del calor.",
-     ["protector", "tonico-capilar", "shampoo"], ["protector-termico-frente"]),
+     ["protector", "tonico-capilar", "shampoo"], ["protector-termico-frente-ia"]),
     ("kit-jabones", "Kit Jabones Artesanales", "Los cuatro jabones de la casa: arroz, carbón activado, avena y café.",
      ["jabon-arroz", "jabon-carbon", "jabon-avena", "jabon-cafe"], []),
 ]

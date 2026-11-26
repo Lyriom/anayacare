@@ -85,6 +85,10 @@ figure :deep(img) { inline-size: 100%; block-size: 100%; aspect-ratio: auto; obj
 .dots span { inline-size: 0.45rem; block-size: 0.45rem; border-radius: 99px; background: #a59480; }
 .dots button[aria-current="true"] span { inline-size: 1.05rem; background: var(--gold-text); }
 @media (prefers-reduced-motion: no-preference) { .track { scroll-behavior: smooth; } }
-@media (min-width: 52rem) { .gallery { position: sticky; top: 0; align-self: start; padding: 1.5rem; } }
+@media (min-width: 52rem) {
+  .gallery { position: sticky; top: 0; display: flex; flex-direction: column; block-size: min(88dvh, 52rem); padding: 1.5rem; }
+  .stage { flex: 1; min-block-size: 0; }
+  .track { block-size: 100%; }
+}
 @media (max-width: 40rem) { .gallery { padding: 0.8rem; } .track { block-size: clamp(15rem, 38dvh, 23rem); } }
 </style>
