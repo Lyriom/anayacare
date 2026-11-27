@@ -112,8 +112,6 @@ for index,p in enumerate(data['productos']):
         c.setFillColor(SAND); c.rect(left,image_y,left_w,image_h,fill=1,stroke=0)
         photo(ROOT/'img/productos'/f"{f['slug']}-800.jpg",left,image_y,left_w,image_h)
         paragraph(f['etiqueta'],left,image_y-4,left_w,8,10,color=MUTED)
-    if len(photos)==1 and 'referencial' in photos[0]['slug']:
-        paragraph('Imagen referencial. Consulta la presentación disponible.',left,image_top-image_h-27,left_w,9,13,color=MUTED)
     x=292; col_w=w-36-x; top=image_top-2
     if p.get('lema'):
         top-=paragraph(p['lema'],x,top,col_w,10.5,15,'AnayaSerif',accent)+19

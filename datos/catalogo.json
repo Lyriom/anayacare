@@ -369,8 +369,13 @@
       "fotos": [
         {
           "slug": "shampoo-referencial",
-          "alt": "Imagen referencial generada del shampoo de cebolla",
-          "etiqueta": "Imagen referencial"
+          "alt": "Ilustración del frente del shampoo de cebolla",
+          "etiqueta": "Frente · ilustración"
+        },
+        {
+          "slug": "shampoo-reverso-ilustrado",
+          "alt": "Ilustración del reverso del shampoo de cebolla",
+          "etiqueta": "Reverso · ilustración"
         }
       ]
     },
@@ -429,6 +434,11 @@
           "slug": "jabon-carbon-frente-ia",
           "alt": "Jabón de carbón activado: fotografía del producto",
           "etiqueta": "Frente"
+        },
+        {
+          "slug": "jabon-carbon-reverso-ilustrado",
+          "alt": "Ilustración del reverso del jabón de carbón activado",
+          "etiqueta": "Reverso · ilustración"
         }
       ]
     },
@@ -486,8 +496,13 @@
       "fotos": [
         {
           "slug": "jabon-cafe-referencial",
-          "alt": "Imagen referencial generada del jabón exfoliante de café",
-          "etiqueta": "Imagen referencial"
+          "alt": "Ilustración del frente del jabón exfoliante de café",
+          "etiqueta": "Frente · ilustración"
+        },
+        {
+          "slug": "jabon-cafe-reverso-ilustrado",
+          "alt": "Ilustración del reverso del jabón exfoliante de café",
+          "etiqueta": "Reverso · ilustración"
         }
       ]
     },

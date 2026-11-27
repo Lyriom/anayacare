@@ -146,8 +146,8 @@ CATALOG = [
 ]
 
 CATALOG_PHOTOS = {
-    'shampoo': [("shampoo-referencial", "Imagen referencial generada del shampoo de cebolla", "Imagen referencial")],
-    'jabon-cafe': [("jabon-cafe-referencial", "Imagen referencial generada del jabón exfoliante de café", "Imagen referencial")],
+    'shampoo': [("shampoo-referencial", "Ilustración del frente del shampoo de cebolla", "Frente · ilustración"), ("shampoo-reverso-ilustrado", "Ilustración del reverso del shampoo de cebolla", "Reverso · ilustración")],
+    'jabon-cafe': [("jabon-cafe-referencial", "Ilustración del frente del jabón exfoliante de café", "Frente · ilustración"), ("jabon-cafe-reverso-ilustrado", "Ilustración del reverso del jabón exfoliante de café", "Reverso · ilustración")],
     'exfoliante-arroz': [("exfoliante-arroz-frente-ia", "Exfoliante de arroz: fotografía del producto", "Frente"), ("exfoliante-arroz-reverso-estudio", "Exfoliante de arroz: etiqueta posterior", "Reverso")],
     'vela-masaje': [("vela-masaje-frente-ia", "Vela de masaje: fotografía del producto", "Frente"), ("vela-masaje-reverso-estudio", "Vela de masaje: etiqueta posterior", "Reverso")],
     'gel-neutro': [("gel-neutro-frente-ia", "Gel neutro: fotografía del producto", "Frente"), ("gel-neutro-reverso-estudio", "Gel neutro: etiqueta posterior", "Reverso")],
@@ -158,7 +158,7 @@ CATALOG_PHOTOS = {
     'agua-micelar': [("agua-micelar-frente-ia", "Agua micelar: fotografía del producto", "Frente"), ("agua-micelar-reverso-estudio", "Agua micelar: etiqueta posterior", "Reverso")],
     'jabon-arroz': [("jabon-arroz-frente-ia", "Jabón aclarante de arroz: fotografía del producto", "Frente"), ("jabon-arroz-reverso-estudio", "Jabón aclarante de arroz: etiqueta posterior", "Reverso")],
     'jabon-avena': [("jabon-avena-frente-ia", "Jabón de avena: fotografía del producto", "Frente"), ("jabon-avena-reverso-estudio", "Jabón de avena: etiqueta posterior", "Reverso")],
-    'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente")],
+    'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente"), ("jabon-carbon-reverso-ilustrado", "Ilustración del reverso del jabón de carbón activado", "Reverso · ilustración")],
     'balsamo-labial': [("balsamo-labial-frente-ia", "Bálsamo labial de cera de abejas: fotografía del producto", "Frente"), ("balsamo-labial-reverso-estudio", "Bálsamo labial de cera de abejas: etiqueta posterior", "Reverso")],
     'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Vista de producto"), ("refresh-frente-estudio", "Etiqueta con indicaciones del Refresh roll-on", "Etiqueta posterior")],
 }
@@ -302,7 +302,7 @@ def catalog_card(pid, cat, name, ingredients):
     photos = CATALOG_PHOTOS.get(pid, [])
     media = (f'<a class="mini-media" href="catalogo/?producto={quote(pid)}" aria-label="Ver detalles de {escape(name)} en el catálogo">'
              f'{picture(photos[0][0], photos[0][1], CARD_SIZES)}'
-             f'{"<span class=mini-reference>Imagen referencial</span>" if pid in ("shampoo", "jabon-cafe") else ""}</a>') if photos else ''
+             f'{"<span class=mini-reference>Ilustración</span>" if pid in ("shampoo", "jabon-cafe") else ""}</a>') if photos else ''
     return f"""
         <li>
           <article class="mini reveal">

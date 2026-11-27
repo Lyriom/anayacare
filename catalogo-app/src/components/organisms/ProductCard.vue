@@ -29,7 +29,7 @@ onBeforeUnmount(() => clearTimeout(temporizador))
   <article class="card">
     <button type="button" class="media-button" @click="emit('ver', producto)">
       <ProductMedia :producto="producto" :carga="carga" />
-      <span v-if="['shampoo', 'jabon-cafe'].includes(producto.id)" class="badge">Imagen referencial</span>
+      <span v-if="['shampoo', 'jabon-cafe'].includes(producto.id)" class="badge">Ilustración</span>
       <span v-else-if="producto.fotos.length > 1" class="badge">{{ producto.fotos.length }} fotos</span>
       <span class="visually-hidden">Ver detalle de {{ producto.nombre }}</span>
     </button>
