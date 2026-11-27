@@ -87,6 +87,37 @@ for idx,p in enumerate(data['productos']):
 c.setFillColor(MUTED); c.setFont('AnayaSans',8); c.drawString(36,y-19,'Precios en dólares estadounidenses. El envío se cotiza por separado.')
 c.showPage()
 
+# Tabla de costos: horizontal para mantener las nueve columnas legibles.
+w,h=landscape(A4);c.setPageSize((w,h));background(w,h,3)
+c.setFillColor(GOLD);c.setFont('AnayaSansBold',9);c.drawString(32,h-46,'COSTOS DE PRODUCCIÓN  ·  USD POR UNIDAD')
+c.setFillColor(INK);c.setFont('AnayaSerif',20);c.drawString(32,h-76,'Tabla de costos y precios')
+labels=['Producto','Materia\nprima','Envase y\netiqueta','Mano de\nobra','Costos\nindirectos','Costo\nunitario','Precio de\nventa','Utilidad','Margen']
+widths=[201,70,73,68,70,70,70,65,55]
+scale=(w-64)/sum(widths);widths=[v*scale for v in widths]
+x=32;y=h-110; rowh=20
+c.setFillColor(colors.HexColor('#eee3d2'));c.roundRect(x,y-28,sum(widths),28,3,fill=1,stroke=0)
+xpos=x
+for label,cw in zip(labels,widths):
+    for i,line in enumerate(label.split('\n')):
+        c.setFillColor(INK);c.setFont('AnayaSansBold',7.3);c.drawString(xpos+4,y-10-i*9,line)
+    xpos+=cw
+y-=28
+for idx,(name,parts,total,price,profit,margin) in enumerate(site['cost_rows']()):
+    if idx%2==0: c.setFillColor(colors.HexColor('#f4eee5'));c.rect(x,y-rowh,sum(widths),rowh,fill=1,stroke=0)
+    vals=[name,*[money(v/100) for v in parts],money(total/100),money(price/100),money(profit/100),f'{margin:.1f}'.replace('.',',')+' %']
+    xpos=x
+    for col,(val,cw) in enumerate(zip(vals,widths)):
+        c.setFont('AnayaSansBold' if col in (0,5,7) else 'AnayaSans',7.1 if col==0 else 7.4)
+        c.setFillColor(INK if col!=7 else GOLD)
+        if col==0: c.drawString(xpos+4,y-13,val)
+        else: c.drawRightString(xpos+cw-5,y-13,val)
+        xpos+=cw
+    y-=rowh
+c.setFont('AnayaSans',8);c.setFillColor(MUTED)
+c.drawString(32,y-20,'Valores estimados. No incluyen envío, impuestos ni gastos de venta. Margen = utilidad ÷ precio de venta.')
+c.showPage();c.setPageSize(A4)
+
+
 # Fichas editoriales: foto principal y detalles propios de cada producto.
 w,h=A4
 ACCENTS = {
@@ -95,7 +126,7 @@ ACCENTS = {
     'Labios': '#a15f6d', 'Bienestar': '#82765d',
 }
 for index,p in enumerate(data['productos']):
-    background(w,h,index+3)
+    background(w,h,index+4)
     accent=colors.HexColor(ACCENTS.get(p['categoria'],'#65765c'))
     c.setFillColor(accent); c.setFont('AnayaSansBold',8.5)
     c.drawString(36,h-41,p['categoria'].upper() + '  /  ANAYA CARE')

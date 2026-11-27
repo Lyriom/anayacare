@@ -24,7 +24,7 @@ from iconos import ICON  # noqa: E402
 PRICES = json.loads((REPO / "datos" / "precios.json").read_text(encoding="utf-8"))
 COSTS = json.loads((REPO / "datos" / "costos.json").read_text(encoding="utf-8"))
 SPECS = json.loads((REPO / "datos" / "especificaciones.json").read_text(encoding="utf-8"))
-MOSTRAR_COSTOS = False  # la información de costos es interna
+MOSTRAR_COSTOS = True  # tabla solicitada para el catálogo
 PRIVACY_ARTICLE = (TOOLS / "privacidad-articulo.html").read_text(encoding="utf-8")
 
 WA_NUMBER = "593963160557"
@@ -146,8 +146,8 @@ CATALOG = [
 ]
 
 CATALOG_PHOTOS = {
-    'shampoo': [("shampoo-referencial", "Ilustración del frente del shampoo de cebolla", "Frente · ilustración"), ("shampoo-reverso-ilustrado", "Ilustración del reverso del shampoo de cebolla", "Reverso · ilustración")],
-    'jabon-cafe': [("jabon-cafe-referencial", "Ilustración del frente del jabón exfoliante de café", "Frente · ilustración"), ("jabon-cafe-reverso-ilustrado", "Ilustración del reverso del jabón exfoliante de café", "Reverso · ilustración")],
+    'shampoo': [("shampoo-referencial", "Ilustración del frente del shampoo de cebolla", "Frente · ilustración"), ("shampoo-reverso-ilustrado-v2", "Ilustración del reverso del shampoo de cebolla", "Reverso · ilustración")],
+    'jabon-cafe': [("jabon-cafe-referencial", "Ilustración del frente del jabón exfoliante de café", "Frente · ilustración"), ("jabon-cafe-reverso-ilustrado-v2", "Ilustración del reverso del jabón exfoliante de café", "Reverso · ilustración")],
     'exfoliante-arroz': [("exfoliante-arroz-frente-ia", "Exfoliante de arroz: fotografía del producto", "Frente"), ("exfoliante-arroz-reverso-estudio", "Exfoliante de arroz: etiqueta posterior", "Reverso")],
     'vela-masaje': [("vela-masaje-frente-ia", "Vela de masaje: fotografía del producto", "Frente"), ("vela-masaje-reverso-estudio", "Vela de masaje: etiqueta posterior", "Reverso")],
     'gel-neutro': [("gel-neutro-frente-ia", "Gel neutro: fotografía del producto", "Frente"), ("gel-neutro-reverso-estudio", "Gel neutro: etiqueta posterior", "Reverso")],
@@ -158,7 +158,7 @@ CATALOG_PHOTOS = {
     'agua-micelar': [("agua-micelar-frente-ia", "Agua micelar: fotografía del producto", "Frente"), ("agua-micelar-reverso-estudio", "Agua micelar: etiqueta posterior", "Reverso")],
     'jabon-arroz': [("jabon-arroz-frente-ia", "Jabón aclarante de arroz: fotografía del producto", "Frente"), ("jabon-arroz-reverso-estudio", "Jabón aclarante de arroz: etiqueta posterior", "Reverso")],
     'jabon-avena': [("jabon-avena-frente-ia", "Jabón de avena: fotografía del producto", "Frente"), ("jabon-avena-reverso-estudio", "Jabón de avena: etiqueta posterior", "Reverso")],
-    'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente"), ("jabon-carbon-reverso-ilustrado", "Ilustración del reverso del jabón de carbón activado", "Reverso · ilustración")],
+    'jabon-carbon': [("jabon-carbon-frente-ia", "Jabón de carbón activado: fotografía del producto", "Frente"), ("jabon-carbon-reverso-ilustrado-v2", "Ilustración del reverso del jabón de carbón activado", "Reverso · ilustración")],
     'balsamo-labial': [("balsamo-labial-frente-ia", "Bálsamo labial de cera de abejas: fotografía del producto", "Frente"), ("balsamo-labial-reverso-estudio", "Bálsamo labial de cera de abejas: etiqueta posterior", "Reverso")],
     'refresh': [("refresh-frente-ia", "Refresh roll-on: fotografía del producto", "Vista de producto"), ("refresh-frente-estudio", "Etiqueta con indicaciones del Refresh roll-on", "Etiqueta posterior")],
 }
