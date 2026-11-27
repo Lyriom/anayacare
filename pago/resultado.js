@@ -10,13 +10,16 @@ if (id && clientTransactionId) {
 history.replaceState(null, '', location.pathname);
 async function confirmar() {
   if (!id || !clientTransactionId) throw new Error('No encontramos los datos del pago. Si realizaste el pago, contacta a la tienda.');
+  const confirmationToken = sessionStorage.getItem(`anaya-pago-token:${clientTransactionId}`);
+  if (!confirmationToken || !/^[0-9a-f]{64}$/.test(confirmationToken)) throw new Error('No encontramos la verificación de este pago. Contacta a la tienda para revisar tu pedido.');
   const configResponse = await fetch('../datos/pagos.json', { cache: 'no-store' });
   if (!configResponse.ok) throw new Error('No se pudo verificar el pago. Contacta a la tienda.');
   const config = await configResponse.json();
   if (!config.supabaseUrl || !config.anonKey || !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.supabaseUrl)) throw new Error('La verificación no está disponible. Contacta a la tienda.');
-  const respuesta = await fetch(`${config.supabaseUrl}/functions/v1/payment-confirm`, { method:'POST', headers:{'Content-Type':'application/json','apikey':config.anonKey}, body:JSON.stringify({id,clientTransactionId}) });
+  const respuesta = await fetch(`${config.supabaseUrl}/functions/v1/payment-confirm`, { method:'POST', headers:{'Content-Type':'application/json','apikey':config.anonKey}, body:JSON.stringify({id,clientTransactionId,confirmationToken}) });
   const resultado = await respuesta.json();
   if (resultado.status === 'paid' || resultado.status === 'cancelled') {
+    sessionStorage.removeItem(`anaya-pago-token:${clientTransactionId}`);
     sessionStorage.removeItem('anaya-pago-id');
     sessionStorage.removeItem('anaya-pago-cliente');
   }

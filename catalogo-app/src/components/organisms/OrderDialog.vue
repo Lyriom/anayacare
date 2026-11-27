@@ -46,8 +46,11 @@ async function pagar() {
     })
     const resultado = await response.json()
     if (!response.ok || !resultado.url) throw new Error(resultado.error || 'No se pudo iniciar el pago.')
+    if (!/^[0-9a-f-]{36}$/i.test(resultado.orderId) || !/^[0-9a-f]{64}$/.test(resultado.confirmationToken)) throw new Error('No se pudo preparar la verificación del pago.')
     const destino = new URL(resultado.url)
     if (destino.protocol !== 'https:' || !(destino.hostname === 'payphonetodoesposible.com' || destino.hostname.endsWith('.payphonetodoesposible.com'))) throw new Error('El enlace de pago no es válido.')
+    // Persist only for this tab and order; never send the token in the URL.
+    sessionStorage.setItem(`anaya-pago-token:${resultado.orderId}`, resultado.confirmationToken)
     location.assign(destino.href)
   } catch (error) {
     errorPago.value = error.message || 'No se pudo iniciar el pago. Intenta de nuevo.'
