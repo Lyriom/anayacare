@@ -1,6 +1,6 @@
 <script setup>
 // Organismo: el pedido en un <dialog> modal, con envío de la lista por WhatsApp.
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useModal } from '../../composables/useModal.js'
 import { enlaceWhatsApp, formatoDinero } from '../../utils/formato.js'
 import BaseButton from '../atoms/BaseButton.vue'
@@ -22,6 +22,37 @@ const emit = defineEmits(['cambiar', 'vaciar'])
 const { dialogo, abrir } = useModal()
 defineExpose({ abrir })
 const titulo = ref(null)
+
+const pago = ref(null)
+const pagando = ref(false)
+const errorPago = ref('')
+const cliente = ref({ name: '', email: '', phone: '' })
+onMounted(async () => {
+  try {
+    const respuesta = await fetch('../datos/pagos.json', { cache: 'no-store' })
+    if (!respuesta.ok) return
+    const config = await respuesta.json()
+    if (config.habilitado === true && /^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.supabaseUrl) && config.anonKey) pago.value = config
+  } catch { /* WhatsApp sigue disponible si el servicio no está configurado. */ }
+})
+async function pagar() {
+  if (!pago.value || pagando.value) return
+  pagando.value = true
+  errorPago.value = ''
+  try {
+    const response = await fetch(`${pago.value.supabaseUrl}/functions/v1/payment-prepare`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', apikey: pago.value.anonKey },
+      body: JSON.stringify({ ...cliente.value, items: props.lineas.map((linea) => ({ id: linea.id, quantity: linea.qty })) }),
+    })
+    const resultado = await response.json()
+    if (!response.ok || !resultado.url) throw new Error(resultado.error || 'No se pudo iniciar el pago.')
+    const destino = new URL(resultado.url)
+    if (destino.protocol !== 'https:' || !(destino.hostname === 'payphonetodoesposible.com' || destino.hostname.endsWith('.payphonetodoesposible.com'))) throw new Error('El enlace de pago no es válido.')
+    location.assign(destino.href)
+  } catch (error) {
+    errorPago.value = error.message || 'No se pudo iniciar el pago. Intenta de nuevo.'
+  } finally { pagando.value = false }
+}
 
 // Mismo mensaje que arma la página principal.
 const mensaje = computed(() => [
@@ -58,7 +89,16 @@ async function vaciar() {
         </ul>
         <p class="total">Total <PriceTag :valor="total" tamano="l" /></p>
       </template>
-      <p class="note">El costo de envío y la forma de pago se coordinan por WhatsApp.</p>
+      <p class="note">El costo de envío se coordina por WhatsApp.</p>
+      <form v-if="lineas.length && pago" class="checkout" @submit.prevent="pagar">
+        <h2>Pagar con PayPhone</h2>
+        <p>El pago cubre los productos; coordina la entrega con nosotros.</p>
+        <label for="pago-nombre">Nombre completo</label><input id="pago-nombre" v-model.trim="cliente.name" autocomplete="name" required minlength="2" maxlength="100">
+        <label for="pago-email">Correo electrónico</label><input id="pago-email" v-model.trim="cliente.email" type="email" autocomplete="email" required maxlength="254">
+        <label for="pago-telefono">Teléfono</label><input id="pago-telefono" v-model.trim="cliente.phone" type="tel" autocomplete="tel" required minlength="7" maxlength="30">
+        <button type="submit" :disabled="pagando">{{ pagando ? 'Preparando pago…' : 'Continuar al pago' }}</button>
+        <p role="status" aria-live="polite">{{ errorPago }}</p>
+      </form>
       <div v-if="lineas.length" class="actions">
         <BaseButton variante="wa" :href="enlace" externo autofocus>
           <BaseIcon nombre="whatsapp" />Enviar pedido por WhatsApp
@@ -85,6 +125,13 @@ h1:focus { outline: none; }
   border-block-start: 1px solid var(--line);
   font-size: 1.05rem;
 }
+.checkout { display: grid; gap: .45rem; border-block: 1px solid var(--line); padding-block: 1.2rem; }
+.checkout h2 { font-size: 1.4rem; }
+.checkout p { color: var(--ink-soft); font-size: .9rem; }
+.checkout label { margin-top: .4rem; font-weight: 600; }
+.checkout input { width: 100%; padding: .7rem; border: 1px solid var(--line); border-radius: .4rem; font: inherit; }
+.checkout button { margin-top: .6rem; border: 0; border-radius: 2rem; padding: .8rem 1rem; background: #806022; color: white; font: inherit; cursor: pointer; }
+.checkout button:disabled { opacity: .6; cursor: wait; }
 .empty, .note { color: var(--ink-soft); }
 .note { font-size: 0.9rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
