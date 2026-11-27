@@ -31,6 +31,19 @@ async function render(){
  msg(data.length?'':'Aún no hay pedidos.');
 }
 $('form').addEventListener('submit',async e=>{e.preventDefault();msg('Ingresando…');const {error}=await supabase.auth.signInWithPassword({email:$('email').value,password:$('password').value});$('password').value='';if(error){msg('No se pudo iniciar sesión. Revisa tus datos.');return}msg('');await render()});
-$('logout').addEventListener('click',async()=>{await supabase.auth.signOut();msg('Sesión cerrada.');await render()});
+$('logout').addEventListener('click',async()=>{$('password-form').reset();$('password-message').textContent='';await supabase.auth.signOut();msg('Sesión cerrada.');await render()});
+$('password-form').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const password=$('new-password').value, confirmation=$('confirm-password').value, notice=$('password-message'), button=$('change-password');
+ if(password!==confirmation){notice.textContent='Las contraseñas no coinciden.';$('confirm-password').focus();return;}
+ if(password.length<12 || password.length>72){notice.textContent='La contraseña debe tener entre 12 y 72 caracteres.';$('new-password').focus();return;}
+ button.disabled=true;notice.textContent='Actualizando contraseña…';
+ try{
+  const {error}=await supabase.auth.updateUser({password});
+  if(error){notice.textContent='No se pudo cambiar la contraseña. Inicia sesión de nuevo e inténtalo otra vez.';return;}
+  $('password-form').reset();notice.textContent='Tu contraseña se actualizó correctamente.';
+ }catch{notice.textContent='No se pudo cambiar la contraseña. Comprueba tu conexión e inténtalo de nuevo.';}
+ finally{button.disabled=false;}
+});
 $('refresh').addEventListener('click',render);
 render();
