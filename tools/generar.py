@@ -420,7 +420,7 @@ def head(title, description, canonical, og_image=True, preload_hero=False):
   <meta property="og:title" content="{escape(title)}">
   <meta property="og:description" content="{escape(description)}">
   <meta property="og:url" content="{canonical}">
-  <meta property="og:image" content="{SITE}img/og-anaya-co.jpg">
+  <meta property="og:image" content="{SITE}img/og-anaya-botanico-v2.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">""" if og_image else ""
@@ -616,6 +616,20 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
+    <section class="section" id="esencia" aria-labelledby="esencia-title">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Nuestra esencia</p>
+          <h2 id="esencia-title">Misión, visión y objetivo</h2>
+          <div class="ornament" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="essence-grid">{"".join(essence_card(*e) for e in ESSENCE)}
+        </div>
+      </div>
+    </section>
+{cost_section() if MOSTRAR_COSTOS else ""}
+
+
     <section class="trust" aria-label="Por qué elegirnos">
       <ul class="wrap">
         <li>{ICON["leaf"]}<span>Ingredientes de origen natural</span></li>
@@ -669,18 +683,6 @@ index = head(f"{BRAND} · Cosmética botánica artesanal en Ecuador",
       </div>
     </section>
 
-    <section class="section" id="esencia" aria-labelledby="esencia-title">
-      <div class="wrap">
-        <div class="section-head center reveal">
-          <p class="eyebrow">Nuestra esencia</p>
-          <h2 id="esencia-title">Misión, visión y objetivo</h2>
-          <div class="ornament" aria-hidden="true"><span></span></div>
-        </div>
-        <div class="essence-grid">{"".join(essence_card(*e) for e in ESSENCE)}
-        </div>
-      </div>
-    </section>
-{cost_section() if MOSTRAR_COSTOS else ""}
 
 
     <section class="section" id="nosotros" aria-labelledby="nosotros-title">
